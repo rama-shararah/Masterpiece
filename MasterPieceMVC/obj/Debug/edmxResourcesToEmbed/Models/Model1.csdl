@@ -1,0 +1,355 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MyMasterPieceModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="MyMasterPieceEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="C__MigrationHistory" EntityType="MyMasterPieceModel.C__MigrationHistory" />
+    <EntitySet Name="AspNetRoles" EntityType="MyMasterPieceModel.AspNetRole" />
+    <EntitySet Name="AspNetUserClaims" EntityType="MyMasterPieceModel.AspNetUserClaim" />
+    <EntitySet Name="AspNetUserLogins" EntityType="MyMasterPieceModel.AspNetUserLogin" />
+    <EntitySet Name="AspNetUserRoles" EntityType="MyMasterPieceModel.AspNetUserRole" />
+    <EntitySet Name="AspNetUsers" EntityType="MyMasterPieceModel.AspNetUser" />
+    <EntitySet Name="Comments" EntityType="MyMasterPieceModel.Comment" />
+    <EntitySet Name="Prices" EntityType="MyMasterPieceModel.Price" />
+    <EntitySet Name="Requests" EntityType="MyMasterPieceModel.Request" />
+    <EntitySet Name="Services" EntityType="MyMasterPieceModel.Service" />
+    <EntitySet Name="Subscripers" EntityType="MyMasterPieceModel.Subscriper" />
+    <EntitySet Name="Subscriptions" EntityType="MyMasterPieceModel.Subscription" />
+    <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="MyMasterPieceModel.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+      <End Role="AspNetRole" EntitySet="AspNetRoles" />
+      <End Role="AspNetUserRole" EntitySet="AspNetUserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="MyMasterPieceModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserClaim" EntitySet="AspNetUserClaims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="MyMasterPieceModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserLogin" EntitySet="AspNetUserLogins" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="MyMasterPieceModel.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserRole" EntitySet="AspNetUserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Comments__userId__534D60F1" Association="MyMasterPieceModel.FK__Comments__userId__534D60F1">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="Comment" EntitySet="Comments" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Request__userId__4CA06362" Association="MyMasterPieceModel.FK__Request__userId__4CA06362">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="Request" EntitySet="Requests" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Subscripe__userI__48CFD27E" Association="MyMasterPieceModel.FK__Subscripe__userI__48CFD27E">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="Subscriper" EntitySet="Subscripers" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Subscript__userI__5070F446" Association="MyMasterPieceModel.FK__Subscript__userI__5070F446">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="Subscription" EntitySet="Subscriptions" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Comments__Subscr__5441852A" Association="MyMasterPieceModel.FK__Comments__Subscr__5441852A">
+      <End Role="Subscriper" EntitySet="Subscripers" />
+      <End Role="Comment" EntitySet="Comments" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Request__Subscri__4D94879B" Association="MyMasterPieceModel.FK__Request__Subscri__4D94879B">
+      <End Role="Subscriper" EntitySet="Subscripers" />
+      <End Role="Request" EntitySet="Requests" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Subscripe__Servi__49C3F6B7" Association="MyMasterPieceModel.FK__Subscripe__Servi__49C3F6B7">
+      <End Role="Service" EntitySet="Services" />
+      <End Role="Subscriper" EntitySet="Subscripers" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="C__MigrationHistory">
+    <Key>
+      <PropertyRef Name="MigrationId" />
+      <PropertyRef Name="ContextKey" />
+    </Key>
+    <Property Name="MigrationId" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="ContextKey" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="Model" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+    <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="AspNetRole">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUserRoles" Relationship="MyMasterPieceModel.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" FromRole="AspNetRole" ToRole="AspNetUserRole" />
+  </EntityType>
+  <EntityType Name="AspNetUserClaim">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="MyMasterPieceModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaim" ToRole="AspNetUser" />
+  </EntityType>
+  <EntityType Name="AspNetUserLogin">
+    <Key>
+      <PropertyRef Name="LoginProvider" />
+      <PropertyRef Name="ProviderKey" />
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="MyMasterPieceModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogin" ToRole="AspNetUser" />
+  </EntityType>
+  <EntityType Name="AspNetUserRole">
+    <Key>
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="RoleId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Note" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetRole" Relationship="MyMasterPieceModel.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" FromRole="AspNetUserRole" ToRole="AspNetRole" />
+    <NavigationProperty Name="AspNetUser" Relationship="MyMasterPieceModel.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" FromRole="AspNetUserRole" ToRole="AspNetUser" />
+  </EntityType>
+  <EntityType Name="AspNetUser">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+    <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+    <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="Photo" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Location" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUserClaims" Relationship="MyMasterPieceModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserClaim" />
+    <NavigationProperty Name="AspNetUserLogins" Relationship="MyMasterPieceModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
+    <NavigationProperty Name="AspNetUserRoles" Relationship="MyMasterPieceModel.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserRole" />
+    <NavigationProperty Name="Comments" Relationship="MyMasterPieceModel.FK__Comments__userId__534D60F1" FromRole="AspNetUser" ToRole="Comment" />
+    <NavigationProperty Name="Requests" Relationship="MyMasterPieceModel.FK__Request__userId__4CA06362" FromRole="AspNetUser" ToRole="Request" />
+    <NavigationProperty Name="Subscripers" Relationship="MyMasterPieceModel.FK__Subscripe__userI__48CFD27E" FromRole="AspNetUser" ToRole="Subscriper" />
+    <NavigationProperty Name="Subscriptions" Relationship="MyMasterPieceModel.FK__Subscript__userI__5070F446" FromRole="AspNetUser" ToRole="Subscription" />
+  </EntityType>
+  <EntityType Name="Comment">
+    <Key>
+      <PropertyRef Name="Comment_Id" />
+    </Key>
+    <Property Name="Comment_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="userId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Subscriper_Id" Type="Int32" />
+    <Property Name="Comment1" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Comment_Date" Type="DateTime" Precision="0" />
+    <Property Name="Accept" Type="Boolean" />
+    <NavigationProperty Name="AspNetUser" Relationship="MyMasterPieceModel.FK__Comments__userId__534D60F1" FromRole="Comment" ToRole="AspNetUser" />
+    <NavigationProperty Name="Subscriper" Relationship="MyMasterPieceModel.FK__Comments__Subscr__5441852A" FromRole="Comment" ToRole="Subscriper" />
+  </EntityType>
+  <EntityType Name="Price">
+    <Key>
+      <PropertyRef Name="Price_Id" />
+    </Key>
+    <Property Name="Price_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Duration" Type="Int32" />
+    <Property Name="Price1" Type="Decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="Request">
+    <Key>
+      <PropertyRef Name="Request_Id" />
+    </Key>
+    <Property Name="Request_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Request_Date" Type="DateTime" Precision="0" />
+    <Property Name="Lantitude" Type="Decimal" Precision="18" Scale="6" />
+    <Property Name="Longtitude" Type="Decimal" Precision="18" Scale="6" />
+    <Property Name="userId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Subscriper_Id" Type="Int32" />
+    <NavigationProperty Name="AspNetUser" Relationship="MyMasterPieceModel.FK__Request__userId__4CA06362" FromRole="Request" ToRole="AspNetUser" />
+    <NavigationProperty Name="Subscriper" Relationship="MyMasterPieceModel.FK__Request__Subscri__4D94879B" FromRole="Request" ToRole="Subscriper" />
+  </EntityType>
+  <EntityType Name="Service">
+    <Key>
+      <PropertyRef Name="Service_Id" />
+    </Key>
+    <Property Name="Service_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Service_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Service_Photo" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Slider_Photo" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Subscripers" Relationship="MyMasterPieceModel.FK__Subscripe__Servi__49C3F6B7" FromRole="Service" ToRole="Subscriper" />
+  </EntityType>
+  <EntityType Name="Subscriper">
+    <Key>
+      <PropertyRef Name="Subscriper_Id" />
+    </Key>
+    <Property Name="Subscriper_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="userId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="First_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Last_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Subscriper_Photo" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Service_Id" Type="Int32" />
+    <Property Name="Location" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Service_Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Beg_Time" Type="Time" Precision="7" />
+    <Property Name="End_Time" Type="Time" Precision="7" />
+    <Property Name="Status" Type="Boolean" />
+    <Property Name="Shown" Type="Boolean" />
+    <NavigationProperty Name="AspNetUser" Relationship="MyMasterPieceModel.FK__Subscripe__userI__48CFD27E" FromRole="Subscriper" ToRole="AspNetUser" />
+    <NavigationProperty Name="Comments" Relationship="MyMasterPieceModel.FK__Comments__Subscr__5441852A" FromRole="Subscriper" ToRole="Comment" />
+    <NavigationProperty Name="Requests" Relationship="MyMasterPieceModel.FK__Request__Subscri__4D94879B" FromRole="Subscriper" ToRole="Request" />
+    <NavigationProperty Name="Service" Relationship="MyMasterPieceModel.FK__Subscripe__Servi__49C3F6B7" FromRole="Subscriper" ToRole="Service" />
+  </EntityType>
+  <EntityType Name="Subscription">
+    <Key>
+      <PropertyRef Name="Subscription_Id" />
+    </Key>
+    <Property Name="Subscription_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Subscription_Duration" Type="Int32" />
+    <Property Name="Subscription_Beg" Type="DateTime" Precision="0" />
+    <Property Name="Subscription_End" Type="DateTime" Precision="0" />
+    <Property Name="Activation_code" Type="Int32" />
+    <Property Name="Subscription_Amount" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="userId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="MyMasterPieceModel.FK__Subscript__userI__5070F446" FromRole="Subscription" ToRole="AspNetUser" />
+  </EntityType>
+  <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+    <End Type="MyMasterPieceModel.AspNetRole" Role="AspNetRole" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="MyMasterPieceModel.AspNetUserRole" Role="AspNetUserRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetRole">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserRole">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+    <End Type="MyMasterPieceModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="MyMasterPieceModel.AspNetUserClaim" Role="AspNetUserClaim" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserClaim">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+    <End Type="MyMasterPieceModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="MyMasterPieceModel.AspNetUserLogin" Role="AspNetUserLogin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserLogin">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+    <End Type="MyMasterPieceModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="MyMasterPieceModel.AspNetUserRole" Role="AspNetUserRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserRole">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Comments__userId__534D60F1">
+    <End Type="MyMasterPieceModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+    <End Type="MyMasterPieceModel.Comment" Role="Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="userId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Request__userId__4CA06362">
+    <End Type="MyMasterPieceModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+    <End Type="MyMasterPieceModel.Request" Role="Request" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Request">
+        <PropertyRef Name="userId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Subscripe__userI__48CFD27E">
+    <End Type="MyMasterPieceModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+    <End Type="MyMasterPieceModel.Subscriper" Role="Subscriper" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Subscriper">
+        <PropertyRef Name="userId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Subscript__userI__5070F446">
+    <End Type="MyMasterPieceModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+    <End Type="MyMasterPieceModel.Subscription" Role="Subscription" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Subscription">
+        <PropertyRef Name="userId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Comments__Subscr__5441852A">
+    <End Type="MyMasterPieceModel.Subscriper" Role="Subscriper" Multiplicity="0..1" />
+    <End Type="MyMasterPieceModel.Comment" Role="Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Subscriper">
+        <PropertyRef Name="Subscriper_Id" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="Subscriper_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Request__Subscri__4D94879B">
+    <End Type="MyMasterPieceModel.Subscriper" Role="Subscriper" Multiplicity="0..1" />
+    <End Type="MyMasterPieceModel.Request" Role="Request" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Subscriper">
+        <PropertyRef Name="Subscriper_Id" />
+      </Principal>
+      <Dependent Role="Request">
+        <PropertyRef Name="Subscriper_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Subscripe__Servi__49C3F6B7">
+    <End Type="MyMasterPieceModel.Service" Role="Service" Multiplicity="0..1" />
+    <End Type="MyMasterPieceModel.Subscriper" Role="Subscriper" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Service">
+        <PropertyRef Name="Service_Id" />
+      </Principal>
+      <Dependent Role="Subscriper">
+        <PropertyRef Name="Service_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

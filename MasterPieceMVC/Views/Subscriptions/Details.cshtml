@@ -1,0 +1,67 @@
+﻿@model MasterPieceMVC.Models.Subscription
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Subscription</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Subscription_Duration)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Subscription_Duration)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Subscription_Beg)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Subscription_Beg)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Subscription_End)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Subscription_End)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Activation_code)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Activation_code)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Subscription_Amount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Subscription_Amount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AspNetUser.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AspNetUser.Email)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Subscription_Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

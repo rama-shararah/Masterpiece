@@ -1,0 +1,58 @@
+﻿@model IEnumerable<MasterPieceMVC.Models.Comment>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Comment1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Comment_Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Accept)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AspNetUser.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Subscriper.userId)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Comment1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Comment_Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Accept)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AspNetUser.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Subscriper.userId)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Comment_Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Comment_Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Comment_Id })
+        </td>
+    </tr>
+}
+
+</table>

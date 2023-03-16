@@ -1,0 +1,46 @@
+﻿@using Microsoft.AspNet.Identity
+
+<style>
+    #registerLink {
+        color: rgb(0 0 0 / 65%);
+        font-size: 18PX;
+        gap: 15px;
+        text-decoration: none;
+    }
+    #loginLink {
+        color: rgb(0 0 0 / 65%);
+        font-size: 18PX;
+        gap: 15px;
+        text-decoration: none;
+    }
+    #off {
+        color: rgb(0 0 0 / 65%);
+        font-size: 18PX;
+        gap: 15px;
+        text-decoration: none;
+    }
+
+</style>
+
+
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "nav-link" }))
+    {
+    @Html.AntiForgeryToken()
+
+    <ul class="nav navbar-nav navbar-right">
+        @*<li>
+            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+        </li>*@
+        <li><a id="off" href="javascript:document.getElementById('logoutForm').submit()">خروج</a></li>
+    </ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>@Html.ActionLink("مستخدم جديد", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class= "nav-link" })</li>
+        <li>@Html.ActionLink("دخول", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "nav-link" })</li>
+    </ul>
+}

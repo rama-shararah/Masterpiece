@@ -1,0 +1,64 @@
+﻿@model IEnumerable<MasterPieceMVC.Models.Subscription>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Subscription_Duration)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Subscription_Beg)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Subscription_End)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Activation_code)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Subscription_Amount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AspNetUser.Email)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Subscription_Duration)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Subscription_Beg)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Subscription_End)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Activation_code)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Subscription_Amount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AspNetUser.Email)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Subscription_Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Subscription_Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Subscription_Id })
+        </td>
+    </tr>
+}
+
+</table>

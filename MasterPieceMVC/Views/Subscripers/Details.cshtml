@@ -1,0 +1,107 @@
+﻿@model MasterPieceMVC.Models.Subscriper
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Subscriper</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.First_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.First_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Last_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Last_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Subscriper_Photo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Subscriper_Photo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Location)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Location)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Service_Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Service_Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Beg_Time)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Beg_Time)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.End_Time)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.End_Time)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Shown)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Shown)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AspNetUser.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AspNetUser.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Service.Service_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Service.Service_Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Subscriper_Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
