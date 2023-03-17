@@ -114,16 +114,17 @@
           </Key>
           <Property Name="Subscriper_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="userId" Type="nvarchar" MaxLength="128" />
-          <Property Name="First_Name" Type="varchar" MaxLength="255" />
-          <Property Name="Last_Name" Type="varchar" MaxLength="255" />
+          <Property Name="First_Name" Type="nvarchar" MaxLength="255" />
+          <Property Name="Last_Name" Type="nvarchar" MaxLength="255" />
           <Property Name="Subscriper_Photo" Type="varchar" MaxLength="255" />
           <Property Name="Service_Id" Type="int" />
           <Property Name="Location" Type="varchar" MaxLength="255" />
-          <Property Name="Service_Description" Type="varchar" MaxLength="255" />
+          <Property Name="Service_Description" Type="nvarchar" MaxLength="255" />
           <Property Name="Beg_Time" Type="time" Precision="7" />
           <Property Name="End_Time" Type="time" Precision="7" />
           <Property Name="Status" Type="bit" />
           <Property Name="Shown" Type="bit" />
+          <Property Name="AverageHourlyRate" Type="int" />
         </EntityType>
         <EntityType Name="Subscriptions">
           <Key>
@@ -523,16 +524,17 @@
           </Key>
           <Property Name="Subscriper_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="userId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="First_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Last_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="First_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Last_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Subscriper_Photo" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Service_Id" Type="Int32" />
           <Property Name="Location" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Service_Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Service_Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Beg_Time" Type="Time" Precision="7" />
           <Property Name="End_Time" Type="Time" Precision="7" />
           <Property Name="Status" Type="Boolean" />
           <Property Name="Shown" Type="Boolean" />
+          <Property Name="AverageHourlyRate" Type="Int32" />
           <NavigationProperty Name="AspNetUser" Relationship="MyMasterPieceModel.FK__Subscripe__userI__48CFD27E" FromRole="Subscriper" ToRole="AspNetUser" />
           <NavigationProperty Name="Comments" Relationship="MyMasterPieceModel.FK__Comments__Subscr__5441852A" FromRole="Subscriper" ToRole="Comment" />
           <NavigationProperty Name="Requests" Relationship="MyMasterPieceModel.FK__Request__Subscri__4D94879B" FromRole="Subscriper" ToRole="Request" />
@@ -691,7 +693,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -809,6 +811,7 @@
           <EntitySetMapping Name="Subscripers">
             <EntityTypeMapping TypeName="MyMasterPieceModel.Subscriper">
               <MappingFragment StoreEntitySet="Subscripers">
+                <ScalarProperty Name="AverageHourlyRate" ColumnName="AverageHourlyRate" />
                 <ScalarProperty Name="Shown" ColumnName="Shown" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="End_Time" ColumnName="End_Time" />

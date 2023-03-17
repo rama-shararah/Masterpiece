@@ -33,6 +33,7 @@ namespace MasterPieceMVC.Models
         public Nullable<System.TimeSpan> End_Time { get; set; }
         public Nullable<bool> Status { get; set; }
         public Nullable<bool> Shown { get; set; }
+        public Nullable<int> AverageHourlyRate { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

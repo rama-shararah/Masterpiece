@@ -33,12 +33,82 @@ namespace MasterPieceMVC.Controllers
         public ActionResult SubProfile()
         {
             var user = User.Identity.GetUserId();
-            Subscriper subscriper = db.Subscripers.Find(user);
+            var subscriper = db.Subscripers.FirstOrDefault(x => x.userId == user);
             if (subscriper == null)
             {
                 return HttpNotFound();
             }
             return View(subscriper);
+        }
+
+        public ActionResult EditSubProfile()
+        {
+            var user = User.Identity.GetUserId();
+            var subscriper = db.Subscripers.FirstOrDefault(x => x.userId == user);
+            if (subscriper == null)
+            {
+                return HttpNotFound();
+            }
+            return View(subscriper);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditSubProfile([Bind(Include = "Subscriper_Id,userId,First_Name,Last_Name,Subscriper_Photo,Service_Id,Location,Service_Description,Beg_Time,End_Time,Status,Shown,AverageHourlyRate")] Subscriper subscriper, HttpPostedFileBase pic, string PhoneNumber, string Location)
+        {
+            
+                var user = User.Identity.GetUserId();
+                var sub = db.Subscripers.FirstOrDefault(x => x.userId == user);
+            var updateUser = db.AspNetUsers.FirstOrDefault(x => x.Id == user);
+
+
+            if (ModelState.IsValid)
+                {
+                    if (pic != null)
+                    {
+                        string pathpic = Path.GetFileName(pic.FileName);
+                        pic.SaveAs(Path.Combine(Server.MapPath("~/pic/"), pic.FileName));
+
+                    }
+
+
+
+
+
+                    sub.First_Name = subscriper.First_Name;
+                    sub.Last_Name = subscriper.Last_Name;
+                    sub.userId = user;
+                if(pic != null) {
+                    sub.Subscriper_Photo = Path.GetFileName(pic.FileName);
+                }
+                sub.Service_Id = subscriper.Service_Id;
+                    sub.Service_Description = subscriper.Service_Description;
+                    sub.Beg_Time = subscriper.Beg_Time;
+                    sub.End_Time = subscriper.End_Time;
+                    sub.AverageHourlyRate = subscriper.AverageHourlyRate;
+                    updateUser.Location = Location;
+                    updateUser.PhoneNumber = PhoneNumber;
+
+
+
+                    db.SaveChanges();
+
+                }
+
+            
+   
+            return RedirectToAction("SubProfile", "Subscripers");
+        }
+
+        [HttpPost]
+        public ActionResult UpdateValue(string selectedValue)
+        {
+            // Update the database value here
+            var user = User.Identity.GetUserId();
+            var subscriper = db.Subscripers.FirstOrDefault(x => x.userId == user);
+           bool value =  Convert.ToBoolean(selectedValue);
+            subscriper.Status = value;
+            db.SaveChanges();
+            return Json(new { success = true });
         }
 
         [HttpPost]
@@ -88,9 +158,9 @@ namespace MasterPieceMVC.Controllers
           
         
 
-        public ActionResult Services(int id)
+        public ActionResult AllSub(int id)
         {
-            var subscripers = db.Subscripers.Where(s => s.Service_Id==id).Include(s => s.AspNetUser).Include(s => s.Service);
+            var subscripers = db.Subscripers.Where(s => s.Service_Id==id).Where(s=>s.Shown==true).Include(s => s.AspNetUser).Include(s => s.Service);
             return View(subscripers.ToList());
         }
 

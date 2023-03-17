@@ -5,7 +5,6 @@
     Layout = "~/Views/Shared/MyLayout.cshtml";
 }
 
-<h2>SubProfile</h2>
 <br />
 
 <style>
@@ -68,7 +67,7 @@
             <div class="p-3 py-5">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <div class="d-flex flex-row align-items-center back">
-                        <a href="edit.aspx" style="color: black;"><i class="fa-solid fa-pen-to-square"></i></a>
+                        <a href="/Subscripers/EditSubProfile" style="color: black;"><i class="fa-solid fa-pen-to-square"></i></a>
                     </div>
                 </div>
 
@@ -92,7 +91,7 @@
 
                 <div class="row mt-3">
                     <div class="col-md-8">
-                        دنانير7
+                       @Model.AverageHourlyRate JD
                     </div>
                     <div class="col-md-4">
                         متوسط سعر الساعة
@@ -100,7 +99,7 @@
                 </div>
                 <div class="row mt-3">
                     <div class="col-md-8">
-                        @Model.Beg_Time الى  @Model.End_Time
+                           @Model.Beg_Time -  @Model.End_Time
                     </div>
                     <div class="col-md-4">
                         ساعات العمل
@@ -120,7 +119,7 @@
                 </div>
                 <div class="row mt-3">
                     <div class="col-md-8">
-                        @Model.Service.Service_Name
+                       @Model.Service.Service_Name
                     </div>
                     <div class="col-md-4">
                         الخدمة
@@ -143,7 +142,7 @@
             <div class="d-flex flex-column align-items-center text-center p-3 py-5">
 
 
-                <img id="img" class="rounded-circle mt-5" src="pic/man1.png" width="310" height="300"><span class="font-weight-bold">محمد سعيد</span><span class="text-black-50">mohammad147@gmail.com</span>
+                <img id="img" class="rounded-circle mt-5" src="~/pic/@Model.Subscriper_Photo" width="310" height="300"><span class="font-weight-bold">@Model.Last_Name @Model.First_Name </span><span class="text-black-50">@Model.AspNetUser.Email</span>
                 <div style="text-align: right;">
                     <span class="fa fa-star"></span>
                     <span class="fa fa-star checked"></span>
@@ -152,14 +151,34 @@
                     <span class="fa fa-star checked"></span>
                 </div>
                 <br />
-                <select style="width: 20%;" class="form-select">
-                    <option>متاح</option>
-                    <option>غير متاح</option>
+                <select id="myDropdown" style="width: 25%;" class="form-select">
+                    <option value="True">متاح</option>
+                    <option value="False">غير متاح</option>
                 </select>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    $("#myDropdown").change(function () {
+        // Get the selected value
+        var selectedValue = $(this).val();
+
+        // Make an AJAX call to the server to update the database value
+        $.ajax({
+            url: "/Subscripers/UpdateValue",
+            type: "POST",
+            data: { selectedValue: selectedValue },
+            success: function (result) {
+                // Handle the success response
+            },
+            error: function (xhr, status, error) {
+                // Handle the error response
+            }
+        });
+    });
+</script>
 <br />
 <br />
 

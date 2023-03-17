@@ -113,6 +113,7 @@
     <EntitySetMapping Name="Subscripers">
       <EntityTypeMapping TypeName="MyMasterPieceModel.Subscriper">
         <MappingFragment StoreEntitySet="Subscripers">
+          <ScalarProperty Name="AverageHourlyRate" ColumnName="AverageHourlyRate" />
           <ScalarProperty Name="Shown" ColumnName="Shown" />
           <ScalarProperty Name="Status" ColumnName="Status" />
           <ScalarProperty Name="End_Time" ColumnName="End_Time" />

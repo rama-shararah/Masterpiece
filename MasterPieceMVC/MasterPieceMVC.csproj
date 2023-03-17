@@ -535,6 +535,8 @@
     <Content Include="Views\Prices\IndexUser.cshtml" />
     <Content Include="Views\Services\Form.cshtml" />
     <Content Include="Views\Subscripers\SubProfile.cshtml" />
+    <Content Include="Views\Subscripers\EditSubProfile.cshtml" />
+    <Content Include="Views\Subscripers\AllSub.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

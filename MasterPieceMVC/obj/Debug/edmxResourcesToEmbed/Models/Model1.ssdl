@@ -109,16 +109,17 @@
     </Key>
     <Property Name="Subscriper_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="userId" Type="nvarchar" MaxLength="128" />
-    <Property Name="First_Name" Type="varchar" MaxLength="255" />
-    <Property Name="Last_Name" Type="varchar" MaxLength="255" />
+    <Property Name="First_Name" Type="nvarchar" MaxLength="255" />
+    <Property Name="Last_Name" Type="nvarchar" MaxLength="255" />
     <Property Name="Subscriper_Photo" Type="varchar" MaxLength="255" />
     <Property Name="Service_Id" Type="int" />
     <Property Name="Location" Type="varchar" MaxLength="255" />
-    <Property Name="Service_Description" Type="varchar" MaxLength="255" />
+    <Property Name="Service_Description" Type="nvarchar" MaxLength="255" />
     <Property Name="Beg_Time" Type="time" Precision="7" />
     <Property Name="End_Time" Type="time" Precision="7" />
     <Property Name="Status" Type="bit" />
     <Property Name="Shown" Type="bit" />
+    <Property Name="AverageHourlyRate" Type="int" />
   </EntityType>
   <EntityType Name="Subscriptions">
     <Key>
