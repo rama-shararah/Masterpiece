@@ -1,0 +1,95 @@
+﻿@model IEnumerable<MasterPieceMVC.Models.Request>
+
+@{
+    ViewBag.Title = "Request";
+    Layout = "~/Views/Shared/MyLayout.cshtml";
+}
+<style>
+    @@media (min-width: 1200px) {
+        .col-xl-7 {
+            flex: 0 0 auto;
+            width: 90%;
+        }
+    }
+
+    .con {
+        display: flex;
+    }
+
+    .me-3 {
+        margin-left: 1rem;
+    }
+
+    .p-4 {
+        padding: 1rem !important;
+    }
+
+    h3 {
+        text-align: right;
+    }
+
+    body {
+        background-color: #F4F4F4;
+    }
+</style>
+
+
+<br />
+<br />
+<h3 class="container">الطلبات الواردة</h3>
+<section>
+    <div class="container my-5 py-5 text-dark">
+        <div class="row d-flex justify-content-center">
+
+            <div class="col-md-11 col-lg-9 col-xl-7">
+                @{ if (Model == null || !Model.Any())
+                    {
+                        <p style="text-align:center">لا يوجد طلبات واردة</p>
+                    }
+else { 
+
+                    foreach (var item in Model)
+                    {
+                        <div class="d-flex flex-start mb-4">
+                            <div class="card w-100">
+                                <div class="card-body p-4">
+                                    <div class="con">
+
+                                        <div class="col-md-2" style="text-align: right;">
+                                            <a href="/Requests/Map/@item.Request_Id">
+                                                <h5>الموقع</h5>
+                                            </a>
+
+                                        </div>
+                                        <div class="col-md-4" style="text-align: right;">
+                                            <h5>رقم الهاتف:@item.AspNetUser.PhoneNumber</h5>
+
+                                        </div>
+                                        <div class="col-md-3">
+                                            <h5>@item.AspNetUser.Location</h5>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <h5>@item.Request_Date<i style="font-size: 10px; color: red; margin-left: 5%;" class="fa-solid fa-circle"></i></h5>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    }
+                }
+
+
+                }
+
+
+            </div>
+        </div>
+
+    </div>
+
+</section>
+

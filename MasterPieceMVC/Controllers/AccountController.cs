@@ -12,12 +12,15 @@ using MasterPieceMVC.Models;
 using System.Web.Helpers;
 using System.Web.UI.WebControls;
 using System.Xml.Linq;
+using System.Web.Security;
 
 namespace MasterPieceMVC.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
+        MyMasterPieceEntities db = new MyMasterPieceEntities();
+
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -79,9 +82,27 @@ namespace MasterPieceMVC.Controllers
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+
+            var roleId = db.AspNetUserRoles.FirstOrDefault(x=>x.AspNetUser.Email == model.Email);
             switch (result)
             {
                 case SignInStatus.Success:
+                    if (roleId.RoleId == "3" && Session["return"]!= null)
+                    {
+                        return RedirectToAction("IndexUser", "Prices");
+                    }
+                    if (roleId.RoleId=="3")
+                    {
+                        return RedirectToAction("HomePage", "Services");
+                    }
+                    else if (roleId.RoleId == "2")
+                    {
+                        return RedirectToAction("HomePage", "Services");
+                    }
+                    else if (roleId.RoleId == "1")
+                    {
+                        return RedirectToAction("Index", "Services");
+                    }
                     return Redirect("~/Services/HomePage");
                 case SignInStatus.LockedOut:
                     return View("Lockout");

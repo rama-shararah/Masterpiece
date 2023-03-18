@@ -6,27 +6,28 @@
     <edmx:Diagrams>
       <Diagram DiagramId="e68dd276c7154fcf95959792e81c8a9d" Name="Diagram1">
         <EntityTypeShape EntityType="MyMasterPieceModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="MyMasterPieceModel.AspNetRole" Width="1.5" PointX="3.75" PointY="17.25" />
-        <EntityTypeShape EntityType="MyMasterPieceModel.AspNetUserClaim" Width="1.5" PointX="3" PointY="14.125" />
-        <EntityTypeShape EntityType="MyMasterPieceModel.AspNetUserLogin" Width="1.5" PointX="3" PointY="29.5" />
-        <EntityTypeShape EntityType="MyMasterPieceModel.AspNetUserRole" Width="1.5" PointX="6" PointY="15" />
-        <EntityTypeShape EntityType="MyMasterPieceModel.AspNetUser" Width="1.5" PointX="0.75" PointY="10.5" />
-        <EntityTypeShape EntityType="MyMasterPieceModel.Comment" Width="1.5" PointX="8.25" PointY="11" />
+        <EntityTypeShape EntityType="MyMasterPieceModel.AspNetRole" Width="1.5" PointX="0.75" PointY="5.375" />
+        <EntityTypeShape EntityType="MyMasterPieceModel.AspNetUserClaim" Width="1.5" PointX="3" PointY="20.875" />
+        <EntityTypeShape EntityType="MyMasterPieceModel.AspNetUserLogin" Width="1.5" PointX="3" PointY="7.25" />
+        <EntityTypeShape EntityType="MyMasterPieceModel.AspNetUserRole" Width="1.5" PointX="3" PointY="10.25" />
+        <EntityTypeShape EntityType="MyMasterPieceModel.AspNetUser" Width="1.5" PointX="0.75" PointY="8.75" />
+        <EntityTypeShape EntityType="MyMasterPieceModel.Comment" Width="1.5" PointX="3" PointY="13" />
         <EntityTypeShape EntityType="MyMasterPieceModel.Price" Width="1.5" PointX="2.75" PointY="0.75" />
-        <EntityTypeShape EntityType="MyMasterPieceModel.Request" Width="1.5" PointX="5.25" PointY="11" />
-        <EntityTypeShape EntityType="MyMasterPieceModel.Service" Width="1.5" PointX="0.75" PointY="7" />
-        <EntityTypeShape EntityType="MyMasterPieceModel.Subscriper" Width="1.5" PointX="3" PointY="8.875" />
-        <EntityTypeShape EntityType="MyMasterPieceModel.Subscription" Width="1.5" PointX="3" PointY="26.25" />
+        <EntityTypeShape EntityType="MyMasterPieceModel.Request" Width="1.5" PointX="8.25" PointY="10" />
+        <EntityTypeShape EntityType="MyMasterPieceModel.Service" Width="1.5" PointX="3.75" PointY="4.25" />
+        <EntityTypeShape EntityType="MyMasterPieceModel.Subscriper" Width="1.5" PointX="6" PointY="9.125" />
+        <EntityTypeShape EntityType="MyMasterPieceModel.Subscription" Width="1.5" PointX="3" PointY="23.625" />
+        <EntityTypeShape EntityType="MyMasterPieceModel.sysdiagram" Width="1.5" PointX="4.75" PointY="0.75" />
         <AssociationConnector Association="MyMasterPieceModel.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" />
         <AssociationConnector Association="MyMasterPieceModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="MyMasterPieceModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="MyMasterPieceModel.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="MyMasterPieceModel.FK__Comments__userId__534D60F1" />
-        <AssociationConnector Association="MyMasterPieceModel.FK__Request__userId__4CA06362" />
         <AssociationConnector Association="MyMasterPieceModel.FK__Subscripe__userI__48CFD27E" />
         <AssociationConnector Association="MyMasterPieceModel.FK__Subscript__userI__5070F446" />
+        <AssociationConnector Association="MyMasterPieceModel.FK_Requests_AspNetUsers" />
         <AssociationConnector Association="MyMasterPieceModel.FK__Comments__Subscr__5441852A" />
-        <AssociationConnector Association="MyMasterPieceModel.FK__Request__Subscri__4D94879B" />
+        <AssociationConnector Association="MyMasterPieceModel.FK__Requests__Subscr__656C112C" />
         <AssociationConnector Association="MyMasterPieceModel.FK__Subscripe__Servi__49C3F6B7" />
       </Diagram>
     </edmx:Diagrams>

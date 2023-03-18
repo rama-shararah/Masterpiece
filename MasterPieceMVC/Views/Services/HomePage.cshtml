@@ -42,7 +42,7 @@
     }
 
     h2 {
-        text-align: right;
+        text-align: center;
     }
 
     .con {
@@ -235,6 +235,26 @@
     </div>
 </div>
 
+
+
+@*@{
+        MasterPieceMVC.Models.MyMasterPieceEntities db = new MasterPieceMVC.Models.MyMasterPieceEntities();
+
+
+        var result = db.Requests
+        .GroupBy(x => x.Subscriper_Id)
+        .OrderByDescending(g => g.Max(x => x.Request_Id))
+        .Take(4)
+        .ToList();
+
+        var query = db.Requests
+        .SelectMany(i => i.ItemLists, (i, il) => i)
+        .GroupBy(i => i.Subscriper_Id)
+        .Select(g => new TopItemsInLists { ItemId = g.Key.ToString(), Quantity = g.Count() })
+        .OrderByDescending(z => z.Quantity)
+        .Take(10);
+    }*@
+
 <br />
 <h2 class="container">الاكثر طلبا</h2>
 <br />
@@ -242,61 +262,82 @@
 <div class="container-xxl py-5">
     <div class="container">
         <div class="row g-4 portfolio-container">
-            <div class="col-lg-3 col-md-6 portfolio-item second wow fadeInUp" data-wow-delay="0.1s">
-                <a href="WebForm8.aspx" style="color: black; text-decoration: none">
-                    <div data-inviewport="scale" class="card col-lg-3 col-md-6" style="width: 18rem;">
-                        <img src="~/pic/man1.png" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <p class="card-text">محمد سعيد</p>
-                            <p style="font-size: 14px;" class="card-text">كهربائي</p>
-                            <div style="text-align: right;">
-                                <span class="fa fa-star"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
+            @*@foreach (var item in result)
+                {
+                    <div class="col-lg-3 col-md-6 portfolio-item second wow fadeInUp" data-wow-delay="0.1s">
+                        <a href="WebForm8.aspx" style="color: black; text-decoration: none">
+                            <div data-inviewport="scale" class="card col-lg-3 col-md-6" style="width: 18rem;">
+                                <img src="~/pic/" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <p class="card-text">@item. @item.Subscriper.First_Name </p>
+                                    <p style="font-size: 14px;" class="card-text">@item.Subscriper.Service.Service_Name</p>
+                                    <div style="text-align: right;">
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-6 portfolio-item second wow fadeInUp" data-wow-delay="0.1s">
-                <a href="WebForm8.aspx" style="color: black; text-decoration: none">
-                    <div data-inviewport="scale" class="card col-lg-3 col-md-6" style="width: 18rem;">
-                        <img src="~/pic/man1.png" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <p class="card-text">محمد سعيد</p>
-                            <p style="font-size: 14px;" class="card-text">كهربائي</p>
-                            <div style="text-align: right;">
-                                <span class="fa fa-star"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-6 portfolio-item second wow fadeInUp" data-wow-delay="0.1s">
-                <a href="WebForm8.aspx" style="color: black; text-decoration: none">
-                    <div data-inviewport="scale" class="card col-lg-3 col-md-6" style="width: 18rem;">
-                        <img src="~/pic/man1.png" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <p class="card-text">محمد سعيد</p>
-                            <p style="font-size: 14px;" class="card-text">كهربائي</p>
-                            <div style="text-align: right;">
-                                <span class="fa fa-star"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
+                }*@
 
+            <div class="col-lg-3 col-md-6 portfolio-item second wow fadeInUp" data-wow-delay="0.1s">
+                <a href="WebForm8.aspx" style="color: black; text-decoration: none">
+                    <div data-inviewport="scale" class="card col-lg-3 col-md-6" style="width: 18rem;">
+                        <img src="~/pic/man1.png" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <p class="card-text">محمد سعيد</p>
+                            <p style="font-size: 14px;" class="card-text">كهربائي</p>
+                            <div style="text-align: right;">
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-6 portfolio-item second wow fadeInUp" data-wow-delay="0.1s">
+                <a href="WebForm8.aspx" style="color: black; text-decoration: none">
+                    <div data-inviewport="scale" class="card col-lg-3 col-md-6" style="width: 18rem;">
+                        <img src="~/pic/man1.png" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <p class="card-text">محمد سعيد</p>
+                            <p style="font-size: 14px;" class="card-text">كهربائي</p>
+                            <div style="text-align: right;">
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-6 portfolio-item second wow fadeInUp" data-wow-delay="0.1s">
+                <a href="WebForm8.aspx" style="color: black; text-decoration: none">
+                    <div data-inviewport="scale" class="card col-lg-3 col-md-6" style="width: 18rem;">
+                        <img src="~/pic/man1.png" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <p class="card-text">محمد سعيد</p>
+                            <p style="font-size: 14px;" class="card-text">كهربائي</p>
+                            <div style="text-align: right;">
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
             <div class="col-lg-3 col-md-6 portfolio-item second wow fadeInUp" data-wow-delay="0.1s">
                 <a href="WebForm8.aspx" style="color: black; text-decoration: none">
                     <div data-inviewport="scale" class="card col-lg-3 col-md-6" style="width: 18rem;">
@@ -323,15 +364,16 @@
 
 <br />
 <br />
-
-<div id="con3">
-    <div id="gray" class="container">
-        <div id="join">!انضم الى خدمات و قدم خدمتك الان</div>
-        <a href="/Prices/IndexUser" class="btn btn-success" style="background-color: #45962C; font-size: 35px;">اشترك الان</a>
+@if (!User.IsInRole("ServiceProvider"))
+{
+    <div id="con3">
+        <div id="gray" class="container">
+            <div id="join">!انضم الى مصلحكُم و قدم خدمتك الان</div>
+            <a href="/Prices/IndexUser" class="btn btn-success" style="background-color: #45962C; font-size: 35px;">اشترك الان</a>
+        </div>
     </div>
-</div>
-
-<script>
+}
+    <script>
         const inViewport = (entries, observer) => {
             entries.forEach(entry => {
                 entry.target.classList.toggle("is-inViewport", entry.isIntersecting);
@@ -346,4 +388,4 @@
         ELs_inViewport.forEach(EL => {
             Obs.observe(EL, obsOptions);
         });
-</script>
+    </script>

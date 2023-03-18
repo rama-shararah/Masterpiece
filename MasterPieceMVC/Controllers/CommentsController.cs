@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MasterPieceMVC.Models;
+using Microsoft.AspNet.Identity;
 
 namespace MasterPieceMVC.Controllers
 {
@@ -20,6 +21,31 @@ namespace MasterPieceMVC.Controllers
             var comments = db.Comments.Include(c => c.AspNetUser).Include(c => c.Subscriper);
             return View(comments.ToList());
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Comment([Bind(Include = "Comment_Id,userId,Subscriper_Id,Comment1,Comment_Date,Accept")] Comment comment)
+        {
+            DateTime currentDate = DateTime.Now.Date;
+            string userId = User.Identity.GetUserId();
+
+
+            Comment NewComm = new Comment
+            {
+                userId = userId,
+                Subscriper_Id = comment.Subscriper_Id,
+                Comment1 = comment.Comment1,
+                Comment_Date = currentDate,
+
+            };
+            int subId = (int)comment.Subscriper_Id;
+            db.Comments.Add(NewComm);
+            db.SaveChanges();
+            return RedirectToAction("SingleSub", "Subscripers", new { id = subId });
+        }
+
+
+
 
         // GET: Comments/Details/5
         public ActionResult Details(int? id)

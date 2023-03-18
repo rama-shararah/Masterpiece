@@ -65,6 +65,7 @@ namespace MasterPieceMVC.Controllers
 
         public ActionResult IndexUser()
         {
+            Session.Remove("return");
             return View(db.Prices.ToList());
         }
 

@@ -21,9 +21,9 @@ namespace MasterPieceMVC.Models
             this.AspNetUserLogins = new HashSet<AspNetUserLogin>();
             this.AspNetUserRoles = new HashSet<AspNetUserRole>();
             this.Comments = new HashSet<Comment>();
-            this.Requests = new HashSet<Request>();
             this.Subscripers = new HashSet<Subscriper>();
             this.Subscriptions = new HashSet<Subscription>();
+            this.Requests = new HashSet<Request>();
         }
     
         public string Id { get; set; }
@@ -50,10 +50,10 @@ namespace MasterPieceMVC.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Request> Requests { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Subscriper> Subscripers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Subscription> Subscriptions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Request> Requests { get; set; }
     }
 }

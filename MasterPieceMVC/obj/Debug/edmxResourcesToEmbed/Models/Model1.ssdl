@@ -83,7 +83,7 @@
     <Property Name="Duration" Type="int" />
     <Property Name="Price" Type="decimal" Precision="18" Scale="2" />
   </EntityType>
-  <EntityType Name="Request">
+  <EntityType Name="Requests">
     <Key>
       <PropertyRef Name="Request_Id" />
     </Key>
@@ -133,6 +133,16 @@
     <Property Name="Subscription_Amount" Type="money" />
     <Property Name="userId" Type="nvarchar" MaxLength="128" />
   </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
   <Association Name="FK__Comments__Subscr__5441852A">
     <End Role="Subscripers" Type="Self.Subscripers" Multiplicity="0..1" />
     <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
@@ -157,27 +167,15 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Request__Subscri__4D94879B">
+  <Association Name="FK__Requests__Subscr__656C112C">
     <End Role="Subscripers" Type="Self.Subscripers" Multiplicity="0..1" />
-    <End Role="Request" Type="Self.Request" Multiplicity="*" />
+    <End Role="Requests" Type="Self.Requests" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Subscripers">
         <PropertyRef Name="Subscriper_Id" />
       </Principal>
-      <Dependent Role="Request">
+      <Dependent Role="Requests">
         <PropertyRef Name="Subscriper_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK__Request__userId__4CA06362">
-    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
-    <End Role="Request" Type="Self.Request" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="AspNetUsers">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Request">
-        <PropertyRef Name="userId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -273,6 +271,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Requests_AspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="Requests" Type="Self.Requests" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Requests">
+        <PropertyRef Name="userId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="MyMasterPieceModelStoreContainer">
     <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
@@ -282,10 +292,11 @@
     <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Comments" EntityType="Self.Comments" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Prices" EntityType="Self.Prices" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Request" EntityType="Self.Request" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Requests" EntityType="Self.Requests" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Services" EntityType="Self.Services" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Subscripers" EntityType="Self.Subscripers" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Subscriptions" EntityType="Self.Subscriptions" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK__Comments__Subscr__5441852A" Association="Self.FK__Comments__Subscr__5441852A">
       <End Role="Subscripers" EntitySet="Subscripers" />
       <End Role="Comments" EntitySet="Comments" />
@@ -294,13 +305,9 @@
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
       <End Role="Comments" EntitySet="Comments" />
     </AssociationSet>
-    <AssociationSet Name="FK__Request__Subscri__4D94879B" Association="Self.FK__Request__Subscri__4D94879B">
+    <AssociationSet Name="FK__Requests__Subscr__656C112C" Association="Self.FK__Requests__Subscr__656C112C">
       <End Role="Subscripers" EntitySet="Subscripers" />
-      <End Role="Request" EntitySet="Request" />
-    </AssociationSet>
-    <AssociationSet Name="FK__Request__userId__4CA06362" Association="Self.FK__Request__userId__4CA06362">
-      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-      <End Role="Request" EntitySet="Request" />
+      <End Role="Requests" EntitySet="Requests" />
     </AssociationSet>
     <AssociationSet Name="FK__Subscripe__Servi__49C3F6B7" Association="Self.FK__Subscripe__Servi__49C3F6B7">
       <End Role="Services" EntitySet="Services" />
@@ -329,6 +336,10 @@
     <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
       <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Requests_AspNetUsers" Association="Self.FK_Requests_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="Requests" EntitySet="Requests" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

@@ -99,17 +99,22 @@
                     <li class="nav-item">
                         @Html.Partial("_LoginPartial")
                     </li>
-                   
-                    <li class="nav-item">
-                        <a class="nav-link" href="/"><i style="font-size: 25px;" class="fa-solid fa-circle-user"></i></a>
-                    </li>
-                    @if (User.IsInRole("ServiceProvider")) {
-                    @*<li class="nav-item">
-            <a class="nav-link" href="WebForm7.aspx"><i style="font-size: 25px;" class="fa-solid fa-bell"></i></a>
-        </li>*@
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><i style="font-size: 25px;" class="fa-solid fa-bell"></i><i style="font-size: 10px; color: red; position: absolute;" class="fa-solid fa-circle"></i></a>
-                    </li>
+                    @if (User.IsInRole("User")) {
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Services/HomePage"><i style="font-size: 25px;" class="fa-solid fa-circle-user"></i></a>
+                        </li>
+                    }
+                    @if (User.IsInRole("ServiceProvider"))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Subscripers/SubProfile"><i style="font-size: 25px;" class="fa-solid fa-circle-user"></i></a>
+                        </li>
+                        @*<li class="nav-item">
+                <a class="nav-link" href="WebForm7.aspx"><i style="font-size: 25px;" class="fa-solid fa-bell"></i></a>
+            </li>*@
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Requests/Request"><i style="font-size: 25px;" class="fa-solid fa-bell"></i><i style="font-size: 10px; color: red; position: absolute;" class="fa-solid fa-circle"></i></a>
+                        </li>
                     }
 
                 </ul>
@@ -217,7 +222,7 @@
         <!-- Copyright -->
     </footer>
     <!-- Footer -->
-    
+
 
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -233,5 +238,6 @@
 
     <!-- Template Javascript -->
     <script src="~/Scripts/main.js"></script>
+    @RenderSection("scripts", required: false)
 </body>
 </html>

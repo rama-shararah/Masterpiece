@@ -37,5 +37,6 @@ namespace MasterPieceMVC.Models
         public virtual DbSet<Service> Services { get; set; }
         public virtual DbSet<Subscriper> Subscripers { get; set; }
         public virtual DbSet<Subscription> Subscriptions { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
     }
 }

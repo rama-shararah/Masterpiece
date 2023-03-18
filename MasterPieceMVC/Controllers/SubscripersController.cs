@@ -152,16 +152,22 @@ namespace MasterPieceMVC.Controllers
             {
                 Response.Write(e.Message);
             }
-            return RedirectToAction("HomePage", "Services");
+            return RedirectToAction("SubProfile", "Subscripers");
         }
            
-          
-        
+
+
 
         public ActionResult AllSub(int id)
         {
-            var subscripers = db.Subscripers.Where(s => s.Service_Id==id).Where(s=>s.Shown==true).Include(s => s.AspNetUser).Include(s => s.Service);
+            var subscripers = db.Subscripers.Where(s => s.Service_Id==id).Where(s=>s.Shown==true).Where(s=>s.Status==true).Include(s => s.AspNetUser).Include(s => s.Service);
             return View(subscripers.ToList());
+        }
+
+        public ActionResult SingleSub(int? id)
+        {
+            var subscripers = db.Subscripers.Find(id);
+            return View(subscripers);
         }
 
         // GET: Subscripers/Details/5
