@@ -147,14 +147,7 @@
         font-size: 30px;
     }
 
-    #row2 {
-        text-align: center;
-        border: solid #a0a0a0 1px;
-        border-radius: 10px;
-        box-shadow: 10px 10px #E6E6E6;
-        width: 40%;
-        font-size: 30px;
-    }
+
 
     #boxesCon {
         width: 100%;
@@ -195,18 +188,25 @@
                         </div>
                         <div class="row mt-3">
                             <div class="col-md-12">
-                                @{ if (!User.IsInRole("User"))
+                                @{ if (!User.IsInRole("User") && !User.IsInRole("ServiceProvider"))
                                     {
-                                               Session["return"]= "return";
-                                                                <a href="/Account/Login" class="btn btn-success" >اشترك الان</a>
+                                        Session["return"] = "return";
+                                        <a href="/Account/Login" class="btn btn-success">اشترك الان</a>
 
                                     }
-else { 
-                                    <button type="button" class="btn btn-success launch" data-toggle="modal"  data-target="#staticBackdrop_@item.Price_Id">
-                                        اشترك الان
-                                    </button>
+                                    else if (item.Price1 == 0)
+                                    {
+                                        <button type="button" class="btn btn-success launch" data-toggle="modal" data-target="#staticBackdrop_0">
+                                            اشترك الان
+                                        </button>
                                     }
+                                    else
+                                    {
+                                        <button type="button" class="btn btn-success launch" data-toggle="modal" data-target="#staticBackdrop_@item.Price_Id">
+                                            اشترك الان
+                                        </button>
                                     }
+                                }
                             </div>
                         </div>
                         <div class="mt-5 text-right">
@@ -293,10 +293,56 @@ else {
                     </div>
                 </div>
             </div>
-        }
+
+            if(item.Price1 == 0) { 
+            <div class="modal fade" id="staticBackdrop_0" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div class="text-right"><i class="fa fa-close close" data-dismiss="modal"></i></div>
+                            <div class="tabs mt-3">
+                                
+                                <div class="tab-content" id="myTabContent">
+                                    <div class="tab-pane fade show active" id="visa" role="tabpanel" aria-labelledby="visa-tab">
+                                        <div class="mt-4 mx-4">
+                                            <div class="text-center">
+                                                <h5>تأكيد الاشتراك</h5>
+                                            </div>
+                                            @using (Html.BeginForm("Pay", "Prices", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                            {
+                                                @Html.AntiForgeryToken()
+                                                <div class="form mt-3">
+
+                                                    <!--hidden-->
+                                                    <div hidden class="inputbox">
+                                                        <input type="text" name="payment" value="@item.Price1" min="1" max="999" class="form-control" required>
+                                                    </div>
+                                                    <div hidden class="inputbox">
+                                                        <input type="text" name="duration" value="@item.Duration" min="1" max="999" class="form-control" required>
+                                                    </div>
+                                                    <div class="px-5 pay">
+                                                        <input type="submit" value="اشتراك" class="btn btn-success btn-block">
+                                                    </div>
+                                                </div>
+                                            } 
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+                                        }
+
+                                    }
 
 
     </div>
 </div>
+
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>

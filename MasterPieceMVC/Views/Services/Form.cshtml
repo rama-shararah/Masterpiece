@@ -102,10 +102,10 @@
                             {
                                 @Html.AntiForgeryToken()
                                 <div style="display: inline-block; width: 46%" class="form-outline form-white mb-4">
-                                    <input  type="text" name="First_Name" id="name1" placeholder="الاسم الثاني" class="form-control form-control-lg" required="required" />
+                                    <input type="text" name="First_Name" id="name1" placeholder="الاسم الثاني" class="form-control form-control-lg" required="required" />
                                 </div>
                                 <div style="display: inline-block; width: 46%" class="form-outline form-white mb-4">
-                                    <input  type="text" name="Last_Name" id="name2" placeholder="الاسم الاول" class="form-control form-control-lg" required />
+                                    <input type="text" name="Last_Name" id="name2" placeholder="الاسم الاول" class="form-control form-control-lg" required />
                                 </div>
 
                                 <div class="form-outline form-white mb-4">
@@ -122,10 +122,13 @@
                                 <br />
                                 <br />
                                 <div class="form-outline form-white mb-4">
-                                   <input type="time" name="Beg_Time" id="Text1" placeholder="اوقات العمل" class="form-control form-control-lg" required />
+                                    <input type="time" name="Beg_Time" id="Text1" placeholder="اوقات العمل" class="form-control form-control-lg" required />
                                 </div>
                                 <div class="form-outline form-white mb-4">
                                     <input type="time" name="End_Time" id="Text1" placeholder="اوقات العمل" class="form-control form-control-lg" required />
+                                </div>
+                                <div class="form-outline form-white mb-4">
+                                    <input type="number" name="AverageHourlyRate"  placeholder="متوسط سعر الساعة" min="0" max="99" class="form-control form-control-lg" required />
                                 </div>
 
                                 <div class="form-outline form-white mb-4">

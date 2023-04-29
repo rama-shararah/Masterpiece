@@ -13,7 +13,7 @@
         <EntityTypeShape EntityType="MyMasterPieceModel.AspNetUser" Width="1.5" PointX="0.75" PointY="8.75" />
         <EntityTypeShape EntityType="MyMasterPieceModel.Comment" Width="1.5" PointX="3" PointY="13" />
         <EntityTypeShape EntityType="MyMasterPieceModel.Price" Width="1.5" PointX="2.75" PointY="0.75" />
-        <EntityTypeShape EntityType="MyMasterPieceModel.Request" Width="1.5" PointX="8.25" PointY="10" />
+        <EntityTypeShape EntityType="MyMasterPieceModel.Request" Width="1.5" PointX="8.25" PointY="10" IsExpanded="true" />
         <EntityTypeShape EntityType="MyMasterPieceModel.Service" Width="1.5" PointX="3.75" PointY="4.25" />
         <EntityTypeShape EntityType="MyMasterPieceModel.Subscriper" Width="1.5" PointX="6" PointY="9.125" />
         <EntityTypeShape EntityType="MyMasterPieceModel.Subscription" Width="1.5" PointX="3" PointY="23.625" />

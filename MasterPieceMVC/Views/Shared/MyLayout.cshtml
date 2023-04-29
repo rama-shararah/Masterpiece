@@ -33,12 +33,12 @@
         }
 
         #logo {
-            width: 50%;
+            width: 70%;
         }
 
         .navbar-nav {
             color: black;
-            font-size: 18PX;
+            font-size: 20PX;
             gap: 15px;
         }
 
@@ -101,7 +101,7 @@
                     </li>
                     @if (User.IsInRole("User")) {
                         <li class="nav-item">
-                            <a class="nav-link" href="/Services/HomePage"><i style="font-size: 25px;" class="fa-solid fa-circle-user"></i></a>
+                            <a class="nav-link" href="/AspNetUsers/UserProfile"><i style="font-size: 25px;" class="fa-solid fa-circle-user"></i></a>
                         </li>
                     }
                     @if (User.IsInRole("ServiceProvider"))
@@ -109,6 +109,7 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/Subscripers/SubProfile"><i style="font-size: 25px;" class="fa-solid fa-circle-user"></i></a>
                         </li>
+                        //if the sum of unaccepted requests > 0 === with red circle
                         @*<li class="nav-item">
                 <a class="nav-link" href="WebForm7.aspx"><i style="font-size: 25px;" class="fa-solid fa-bell"></i></a>
             </li>*@

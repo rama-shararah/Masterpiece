@@ -4,104 +4,121 @@
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
+<div class="container-fluid pt-4 px-4">
+    <h2>Details</h2>
 
-<h2>Details</h2>
+    <div>
+        <h4>Subscriper</h4>
+        <hr />
 
-<div>
-    <h4>Subscriper</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.First_Name)
-        </dt>
+        <table class="table">
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.First_Name)
+                </td>
 
-        <dd>
-            @Html.DisplayFor(model => model.First_Name)
-        </dd>
+                <td>
+                    @Html.DisplayFor(model => model.First_Name)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.Last_Name)
+                </td>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Last_Name)
-        </dt>
+                <td>
+                    @Html.DisplayFor(model => model.Last_Name)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.Subscriper_Photo)
+                </td>
 
-        <dd>
-            @Html.DisplayFor(model => model.Last_Name)
-        </dd>
+                <td>
+                    <img src="~/pic/@Model.Subscriper_Photo" width="50" alt="Alternate Text" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.Location)
+                </td>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Subscriper_Photo)
-        </dt>
+                <td>
+                    @Html.DisplayFor(model => model.AspNetUser.Location)
+                </td>
+            </tr>
 
-        <dd>
-            @Html.DisplayFor(model => model.Subscriper_Photo)
-        </dd>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.Service_Description)
+                </td>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Location)
-        </dt>
+                <td>
+                    @Html.DisplayFor(model => model.Service_Description)
+                </td>
+            </tr>
 
-        <dd>
-            @Html.DisplayFor(model => model.Location)
-        </dd>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.Beg_Time)
+                </td>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Service_Description)
-        </dt>
+                <td>
+                    @Html.DisplayFor(model => model.Beg_Time)
+                </td>
+            </tr>
 
-        <dd>
-            @Html.DisplayFor(model => model.Service_Description)
-        </dd>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.End_Time)
+                </td>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Beg_Time)
-        </dt>
+                <td>
+                    @Html.DisplayFor(model => model.End_Time)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.Status)
+                </td>
 
-        <dd>
-            @Html.DisplayFor(model => model.Beg_Time)
-        </dd>
+                <td>
+                    @{ if (Model.Status == true)
+                        {
+                            <p>متاح</p>
+                        }
+                        else
+                        {
+                            <p>غير متاح</p>
+                        }
+                    }
+                </td>
+            </tr>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.End_Time)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.End_Time)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Status)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Status)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Shown)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Shown)
-        </dd>
-
-        <dt>
+            <tr>
+        <td>
             @Html.DisplayNameFor(model => model.AspNetUser.Email)
-        </dt>
+        </td>
 
-        <dd>
+        <td>
             @Html.DisplayFor(model => model.AspNetUser.Email)
-        </dd>
+        </td>
+        </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.Service.Service_Name)
+                </td>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Service.Service_Name)
-        </dt>
+                <td>
+                    @Html.DisplayFor(model => model.Service.Service_Name)
+                </td>
+            </tr>
 
-        <dd>
-            @Html.DisplayFor(model => model.Service.Service_Name)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Subscriper_Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+        </table>
+    </div>
+    <p>
+     
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+    </div>

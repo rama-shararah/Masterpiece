@@ -71,7 +71,7 @@
     <Property Name="Comment_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="userId" Type="nvarchar" MaxLength="128" />
     <Property Name="Subscriper_Id" Type="int" />
-    <Property Name="Comment" Type="varchar" MaxLength="255" />
+    <Property Name="Comment" Type="nvarchar" MaxLength="255" />
     <Property Name="Comment_Date" Type="date" />
     <Property Name="Accept" Type="bit" />
   </EntityType>
@@ -88,7 +88,7 @@
       <PropertyRef Name="Request_Id" />
     </Key>
     <Property Name="Request_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Request_Date" Type="date" />
+    <Property Name="Request_Date" Type="datetime" />
     <Property Name="Lantitude" Type="decimal" Precision="18" Scale="6" />
     <Property Name="Longtitude" Type="decimal" Precision="18" Scale="6" />
     <Property Name="userId" Type="nvarchar" MaxLength="128" />

@@ -1,0 +1,151 @@
+﻿@model MasterPieceMVC.Models.AspNetUser
+
+@{
+    ViewBag.Title = "EditUserProfile";
+    Layout = "~/Views/Shared/MyLayout.cshtml";
+}
+
+<style>
+    body {
+        background: #E6E6E6;
+    }
+
+    .form-control:focus {
+        box-shadow: none;
+        border-color: #BA68C8;
+    }
+
+    .profile-button {
+        background: #45962C;
+        box-shadow: none;
+        border: none;
+    }
+
+        .profile-button:hover {
+            background: #327829;
+        }
+
+        .profile-button:focus {
+            background: #45962C;
+            box-shadow: none;
+        }
+
+        .profile-button:active {
+            background: #45962C;
+            box-shadow: none;
+        }
+
+    .back:hover {
+        color: #45962C;
+        cursor: pointer;
+    }
+
+    ::placeholder {
+        text-align: right;
+    }
+
+    option {
+        text-align: right;
+    }
+
+    .form-control:disabled, .form-control:read-only {
+        background-color: #fff;
+        opacity: 1
+    }
+
+    .btn-file {
+        position: relative;
+        overflow: hidden;
+        background-color: #45962C;
+        width: 40%;
+        height: 45px
+    }
+
+        .btn-file input[type=file] {
+            position: absolute;
+            top: 0;
+            right: 0;
+            min-width: 100%;
+            min-height: 100%;
+            font-size: 100px;
+            text-align: right;
+            filter: alpha(opacity=0);
+            opacity: 0;
+            outline: none;
+            background: white;
+            cursor: inherit;
+            display: block;
+        }
+</style>
+
+<div class="container rounded bg-white mt-5">
+    @using (Html.BeginForm("EditUserProfile", "AspNetUsers", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="row container">
+
+            <div class="col-md-8">
+                <div class="p-3 py-5">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div class="d-flex flex-row align-items-center back">
+                            <i class="fa fa-long-arrow-left mr-1 mb-1"></i>
+                            <a href="/AspNetUsers/UserProfile" style="color: black">
+                                <h5>رجوع</h5>
+                            </a>
+                        </div>
+                        <h4 class="text-right">تعديل الحساب</h4>
+                    </div>
+                    <br />
+
+            
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" name="PhoneNumber" value="@Model.PhoneNumber" class="form-control" placeholder="رقم الهاتف">
+                            </div>
+
+                    </div>
+
+
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                        </div>
+                        <div class="col-md-6">
+                            @Html.DropDownListFor(model => model.Location,
+     new SelectList(new List<string> {
+                               "الحي الجنوبي",
+                               "الحي الشرقي",
+                               "الحي الشمالي",
+                               "الحي الغربي"
+                            }, Model.Location)
+         , new { @class = "form-select form-control", name = "Location" })
+                        </div>
+
+                    </div>
+
+
+                        <div class="mt-5 text-right">
+                            <input class="btn btn-primary profile-button" type="submit" value="حفظ التعديل" />
+                        </div>
+
+                    </div>
+
+            </div>
+            <div class="col-md-4 border-right">
+                <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                    <img class="rounded-circle mt-5" src="~/pic/@Model.Photo" width="120"><br />
+                    <span class="btn btn-success btn-file">
+                        تعديل الصورة <i class="fa-solid fa-image"></i>
+                        <input type="file" name="pic" accept="image/*">
+                    </span><br />
+
+
+                </div>
+            </div>
+
+        </div>
+    }
+</div>
+<br />
+<br />

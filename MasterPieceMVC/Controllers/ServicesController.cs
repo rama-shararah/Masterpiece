@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -54,10 +55,27 @@ namespace MasterPieceMVC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Service_Id,Service_Name,Service_Photo,Slider_Photo")] Service service)
+        public ActionResult Create([Bind(Include = "Service_Id,Service_Name,Service_Photo,Slider_Photo")] Service service, HttpPostedFileBase SliderPic, HttpPostedFileBase ServicePic)
         {
+
             if (ModelState.IsValid)
             {
+                if (SliderPic != null)
+                {
+                    string pathpic = Path.GetFileName(SliderPic.FileName);
+                    SliderPic.SaveAs(Path.Combine(Server.MapPath("~/pic/"), SliderPic.FileName));
+                    service.Slider_Photo = pathpic;
+                }
+
+                if (ServicePic != null)
+                {
+                    string pathpic2 = Path.GetFileName(ServicePic.FileName);
+                    ServicePic.SaveAs(Path.Combine(Server.MapPath("~/pic/"), ServicePic.FileName));
+                    service.Service_Photo = pathpic2;
+                }
+
+
+
                 db.Services.Add(service);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -74,6 +92,8 @@ namespace MasterPieceMVC.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Service service = db.Services.Find(id);
+            Session["Slider_Photo"] = service.Slider_Photo;
+            Session["Service_Photo"] = service.Service_Photo;
             if (service == null)
             {
                 return HttpNotFound();
@@ -86,10 +106,27 @@ namespace MasterPieceMVC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Service_Id,Service_Name,Service_Photo,Slider_Photo")] Service service)
+        public ActionResult Edit([Bind(Include = "Service_Id,Service_Name,Service_Photo,Slider_Photo")] Service service ,HttpPostedFileBase SliderPic, HttpPostedFileBase ServicePic)
         {
             if (ModelState.IsValid)
             {
+                service.Slider_Photo = Session["Slider_Photo"].ToString();
+                service.Service_Photo = Session["Service_Photo"].ToString();
+
+                if (SliderPic != null)
+                {
+                   string pathpic = Path.GetFileName(SliderPic.FileName);
+                    SliderPic.SaveAs(Path.Combine(Server.MapPath("~/pic/"), SliderPic.FileName));
+                    service.Slider_Photo = pathpic;
+                }
+
+                if (ServicePic != null)
+                {
+                    string pathpic2 = Path.GetFileName(ServicePic.FileName);
+                    ServicePic.SaveAs(Path.Combine(Server.MapPath("~/pic/"), ServicePic.FileName));
+                    service.Service_Photo = pathpic2;
+                }
+            
                 db.Entry(service).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

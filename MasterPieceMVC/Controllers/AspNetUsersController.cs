@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MasterPieceMVC.Models;
+using Microsoft.AspNet.Identity;
 
 namespace MasterPieceMVC.Controllers
 {
@@ -17,8 +19,65 @@ namespace MasterPieceMVC.Controllers
         // GET: AspNetUsers
         public ActionResult Index()
         {
-            return View(db.AspNetUsers.ToList());
+            return View(db.AspNetUsers.Where(u => u.AspNetUserRoles.Any(ur => ur.RoleId == "3")).ToList());
         }
+        public ActionResult UserProfile()
+        {
+            var user = User.Identity.GetUserId();
+            var users = db.AspNetUsers.FirstOrDefault(x => x.Id == user);
+            if (users == null)
+            {
+                return HttpNotFound();
+            }
+            return View(users);
+        }
+
+        public ActionResult EditUserProfile()
+        {
+            var user = User.Identity.GetUserId();
+            var users = db.AspNetUsers.FirstOrDefault(x => x.Id == user);
+            if (users == null)
+            {
+                return HttpNotFound();
+            }
+            return View(users);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditUserProfile([Bind(Include = "Id,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName,Photo,Location")] AspNetUser aspNetUser, HttpPostedFileBase pic)
+        {
+
+            var user = User.Identity.GetUserId();
+            var updateUser = db.AspNetUsers.FirstOrDefault(x => x.Id == user);
+
+
+            if (ModelState.IsValid)
+            {
+                if (pic != null)
+                {
+                    string pathpic = Path.GetFileName(pic.FileName);
+                    pic.SaveAs(Path.Combine(Server.MapPath("~/pic/"), pic.FileName));
+
+                }
+
+                if (pic != null)
+                {
+                    updateUser.Photo = Path.GetFileName(pic.FileName);
+                }
+                updateUser.Location = aspNetUser.Location;
+                updateUser.PhoneNumber = aspNetUser.PhoneNumber;
+
+
+
+                db.SaveChanges();
+
+            }
+
+
+
+            return RedirectToAction("UserProfile", "AspNetUsers");//impoort
+        }
+
 
         // GET: AspNetUsers/Details/5
         public ActionResult Details(string id)

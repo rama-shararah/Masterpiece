@@ -1,0 +1,173 @@
+﻿@model MasterPieceMVC.Models.AspNetUser
+
+@{
+    ViewBag.Title = "UserProfile";
+    Layout = "~/Views/Shared/MyLayout.cshtml";
+}
+
+<br />
+
+<style>
+    #row {
+        text-align: right;
+        border: solid #E6E6E6 1px;
+        border-radius: 4px;
+        width: 100%;
+    }
+
+    .card-body {
+        border-top: 1px #E6E6E6 solid;
+    }
+
+    #text {
+        font-size: 20px;
+    }
+
+    .link-muted {
+        color: #aaa;
+    }
+
+        .link-muted:hover {
+            color: #1266f1;
+        }
+
+    .me-3 {
+        margin-left: 1rem;
+    }
+
+    .checked {
+        color: orange;
+    }
+
+    @@media (min-width: 1200px) {
+        .col-xl-7 {
+            flex: 0 0 auto;
+            width: 100%;
+        }
+    }
+
+    .con {
+        display: flex;
+    }
+
+    ::placeholder {
+        text-align: right;
+    }
+
+    #img {
+        border: 1px solid #E6E6E6;
+    }
+</style>
+
+<div class="container">
+    <div id="row" class="row">
+
+        <div id="text" class="col-md-7">
+            <div class="p-3 py-5">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div class="d-flex flex-row align-items-center back">
+                        <a href="/AspNetUsers/EditUserProfile" style="color: black;"><i class="fa-solid fa-pen-to-square"></i></a>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-8">
+                        @Model.Email
+
+                    </div>
+                    <div class="col-md-4">
+                        البريد الالكتروني
+                    </div>
+                </div>
+                <hr />
+                <div class="row mt-3">
+                    <div class="col-md-8">
+                        @Model.Location
+
+                    </div>
+                    <div class="col-md-4">
+                        مكان الاقامة
+                    </div>
+                </div>
+                <hr />
+                <div class="row mt-3">
+                    <div class="col-md-8">
+                        @Model.PhoneNumber
+                    </div>
+                    <div class="col-md-4">
+                        رقم الهاتف
+                    </div>
+                </div>
+                <hr />
+                @{
+                    var user = User.Identity.Name;
+                    MasterPieceMVC.Models.MyMasterPieceEntities db = new MasterPieceMVC.Models.MyMasterPieceEntities();
+                    var numOforders = db.Requests.Where(x => x.AspNetUser.Email == user).Count();
+                }
+                <div class="row mt-3">
+                    <div class="col-md-8">
+                        @numOforders
+
+                    </div>
+                    <div class="col-md-4">
+                        عدد الطلبات
+                    </div>
+                </div>
+                <hr />
+                <div class="mt-5 text-right">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5 border-right">
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+
+
+                <img id="img" class="rounded-circle mt-5" src="~/pic/@Model.Photo" width="280" height="270">
+                <br />
+
+            </div>
+        </div>
+    </div>
+    @*@{ 
+
+        MasterPieceMVC.Models.MyMasterPieceEntities db = new MasterPieceMVC.Models.MyMasterPieceEntities();
+        var request = db.Requests.Where(x => x.userId == );
+    }
+    @foreach (var item in Model)
+    {
+    <div class="d-flex flex-start mb-4">
+        <div class="card w-100">
+            <div class="card-body p-4">
+                <div class="con">
+
+                    <div class="col-md-2" style="text-align: right;">
+                        <a href="/Requests/Map/@item.Request_Id">
+                            <h5>الموقع</h5>
+                        </a>
+
+                    </div>
+                    <div class="col-md-4" style="text-align: right;">
+                        <h5>رقم الهاتف:@item.AspNetUser.PhoneNumber</h5>
+
+                    </div>
+                    <div class="col-md-3">
+                        <h5>@item.AspNetUser.Location</h5>
+                    </div>
+                    <div class="col-md-3">
+                        <h5>@item.Request_Date<i style="font-size: 10px; color: red; margin-left: 5%;" class="fa-solid fa-circle"></i></h5>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    }
+    }*@
+
+</div>
+
+
+<br />
+<br />

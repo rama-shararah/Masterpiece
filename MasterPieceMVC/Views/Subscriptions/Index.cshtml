@@ -4,61 +4,74 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
+<style>
+    #subs {
+        color: var(--primary);
+        background: #FFFFFF;
+        border-color: var(--primary);
+    }
+</style>
 
-<h2>Index</h2>
+<div class="container-fluid pt-4 px-4">
+    @*<p>
+        @Html.ActionLink("Create New", "Create")
+    </p>*@
+    <div class="table-responsive">
+        <table class="table table-bordered table-responsive table-hover">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.AspNetUser.Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Subscription_Duration)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Subscription_Beg)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Subscription_End)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Subscription_Amount)
+                </th>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Subscription_Duration)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Subscription_Beg)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Subscription_End)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Activation_code)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Subscription_Amount)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AspNetUser.Email)
-        </th>
-        <th></th>
-    </tr>
+                <th></th>
+            </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Subscription_Duration)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Subscription_Beg)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Subscription_End)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Activation_code)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Subscription_Amount)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AspNetUser.Email)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Subscription_Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Subscription_Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Subscription_Id })
-        </td>
-    </tr>
-}
+            @foreach (var item in Model)
+            {
 
-</table>
+                DateTime dateBeg =Convert.ToDateTime( item.Subscription_Beg);
+                string dateBeg2 = dateBeg.ToString("dd/MM/yyyy");
+
+
+                DateTime dateEnd = Convert.ToDateTime(item.Subscription_Beg);
+                string dateEnd2 = dateBeg.ToString("dd/MM/yyyy");
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AspNetUser.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Subscription_Duration) days
+                    </td>
+                    <td>
+                        @dateBeg2
+                    </td>
+                    <td>
+                        @dateEnd2
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Subscription_Amount) JD
+                    </td>
+
+                    <td>
+
+                        @Html.ActionLink("Details", "Details", new { id = item.Subscription_Id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Subscription_Id })
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+    </div>

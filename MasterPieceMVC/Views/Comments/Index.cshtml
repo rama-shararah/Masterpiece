@@ -5,54 +5,70 @@
     Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
 
-<h2>Index</h2>
+<style>
+    #comment {
+        color: var(--primary);
+        background: #FFFFFF;
+        border-color: var(--primary);
+    }
+</style>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Comment1)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Comment_Date)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Accept)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AspNetUser.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Subscriper.userId)
-        </th>
-        <th></th>
-    </tr>
+<div class="container-fluid pt-4 px-4">
+    <h4 class="mb-0">Comments</h4>
+    <br />
+    @*<p>
+            @Html.ActionLink("Create New", "Create")
+        </p>*@
+    <div class="table-responsive">
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Comment1)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Comment_Date)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Accept)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AspNetUser.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Subscriper.userId)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Comment_Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Comment_Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Comment_Id })
-        </td>
-    </tr>
-}
+        <table class="table text-start align-middle table-bordered table-hover mb-0">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Comment1)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Comment_Date)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Accept)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AspNetUser.Email)
+                </th>
+             
+                <th></th>
+            </tr>
 
-</table>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Comment1)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Comment_Date)
+                    </td>
+                    <td>
+
+                        @if ((item.Accept) == true)
+                        {
+
+                            <text>true</text>}
+                        else
+                        { <text>false</text>}
+</td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AspNetUser.Email)
+                    </td>
+                  
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Comment_Id }) |
+                        
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Comment_Id })
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+    </div>

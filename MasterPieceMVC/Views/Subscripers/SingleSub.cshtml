@@ -53,8 +53,7 @@
     }
 </style>
 
-<br />
-<br />
+
 <br />
 <br />
 
@@ -136,10 +135,20 @@
                 </div>
                 <div class="row mt-3">
                     <div class="col-md-8">
-
-                        <a class="btn btn-success launch" data-toggle="modal" data-target="#staticBackdrop">
-                            طلب الخدمة
-                        </a>
+                        @{ if (User.IsInRole("ServiceProvider") || User.IsInRole("User"))
+                            {
+                                <a class="btn btn-success launch" data-toggle="modal" data-target="#staticBackdrop">
+                                    طلب الخدمة
+                                </a>
+                                    }
+                                    else
+                                    {
+                                        Session["id"] = Model.Subscriper_Id;
+                                <a class="btn btn-success launch" href="/Account/Login" >
+                                    طلب الخدمة
+                                </a>
+                            }
+                        }
                     </div>
                     <div class="col-md-4">
                     </div>
@@ -173,7 +182,7 @@
     <div class="container my-5 py-5 text-dark">
         <div class="row d-flex justify-content-center">
             <div class="coment-bottom bg-white p-2 px-4">
-                @if(User.IsInRole("ServiceProvider") && User.IsInRole("User")) { 
+                @if(User.IsInRole("ServiceProvider") || User.IsInRole("User")) { 
                  using (Html.BeginForm("Comment", "Comments", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
                     @Html.AntiForgeryToken()

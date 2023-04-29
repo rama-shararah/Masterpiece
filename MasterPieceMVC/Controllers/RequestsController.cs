@@ -41,7 +41,7 @@ namespace MasterPieceMVC.Controllers
         [HttpPost]
         public ActionResult SaveLocation([Bind(Include = "Request_Id,Request_Date,Lantitude,Longtitude,userId,Subscriper_Id")] Request request, double lat, double lng)
         {
-            DateTime currentDate = DateTime.Now.Date;
+            DateTime currentDate = DateTime.Now;
             string userId = User.Identity.GetUserId();
 
             decimal latt = Convert.ToDecimal(lat);

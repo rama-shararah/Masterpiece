@@ -21,6 +21,11 @@ namespace MasterPieceMVC.Controllers
             return View();
         }
 
+        public ActionResult Dashboard()
+        {
+
+            return View();
+        }
 
         public ActionResult Index()
         {

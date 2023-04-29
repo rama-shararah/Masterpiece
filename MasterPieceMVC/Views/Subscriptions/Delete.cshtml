@@ -4,70 +4,72 @@
     ViewBag.Title = "Delete";
     Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
+<div class="container-fluid pt-4 px-4">
+    <h2>Delete</h2>
 
-<h2>Delete</h2>
+    <h3>Are you sure you want to delete this?</h3>
+    <div>
+        <h4>Subscription</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Subscription_Duration)
+            </dt>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Subscription</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Subscription_Duration)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Subscription_Duration)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Subscription_Duration)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Subscription_Beg)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Subscription_Beg)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Subscription_Beg)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Subscription_Beg)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Subscription_End)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Subscription_End)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Subscription_End)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Subscription_End)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Activation_code)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Activation_code)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Activation_code)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Activation_code)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Subscription_Amount)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Subscription_Amount)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Subscription_Amount)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Subscription_Amount)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.AspNetUser.Email)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.AspNetUser.Email)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.AspNetUser.Email)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.AspNetUser.Email)
-        </dd>
+        </dl>
 
-    </dl>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
 
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
-    }
-</div>
+            <div class="form-actions no-color">
+                <input type="submit" value="Delete" class="btn btn-default" /> |
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+        }
+    </div>
+    </div>

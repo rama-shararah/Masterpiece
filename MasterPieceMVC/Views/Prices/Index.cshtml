@@ -5,36 +5,50 @@
     Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
 
-<h2>Index</h2>
+<style>
+    #price {
+        color: var(--primary);
+        background: #FFFFFF;
+        border-color: var(--primary);
+    }
+</style>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Duration)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Price1)
-        </th>
-        <th></th>
-    </tr>
+<div class="container-fluid pt-4 px-4">
+    <h4 class="mb-0">Prices</h4>
+    <br />
+    <p>
+            @Html.ActionLink("Create New", "Create")
+        </p>
+    <div class="table-responsive">
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Duration)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Price1)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Price_Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Price_Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Price_Id })
-        </td>
-    </tr>
-}
+        <table class="table text-start align-middle table-bordered table-hover mb-0">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Duration)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Price1)
+                </th>
+                <th></th>
+            </tr>
 
-</table>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Duration)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price1)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Price_Id }) |
+                       
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Price_Id })
+                    </td>
+                </tr>
+            }
+
+        </table>
+</div>
+</div>

@@ -20,6 +20,7 @@
         top: 55%;
         left: 15%;
         width: 35%;
+        /* border:red solid;*/
     }
 
     #question {
@@ -27,8 +28,8 @@
         position: absolute;
         top: 40%;
         left: 12%;
-        width: 40%;
-        font-size: 45px;
+        width: 45%;
+        font-size: 50px;
     }
 
     #categoryCon {
@@ -133,6 +134,10 @@
         background: rgb(6 6 6 / 60%) !important;
     }
 
+    .font {
+        font-size: 29px;
+    }
+
     @@media only screen and (min-device-width: 0px) and (max-device-width: 480px) {
         #question {
             top: 10%;
@@ -200,9 +205,27 @@
 </div>
 
 <div id="search">
-    <div class="d-flex" role="search">
-        <button class="btn btn-success" style="background-color: #45962C; font-size: 20px;" type="submit">بحث</button>
-        <input class="form-control me-2" style="height: 60px;" type="search" placeholder="" aria-label="Search" />
+    <div style="display:flex; justify-content:space-evenly; ">
+
+        <a class="btn btn-success font" href="#serv">الخدمات</a>
+        @{
+            MasterPieceMVC.Models.MyMasterPieceEntities db = new MasterPieceMVC.Models.MyMasterPieceEntities();
+            var user = User.Identity.Name;
+            if (user != "" && (User.IsInRole("ServiceProvider")))
+            {
+                var shown = db.Subscripers.FirstOrDefault(x => x.AspNetUser.Email == user).Shown;
+                if (shown == false)
+                {
+                    <a class="btn btn-success font" href="#con3">اشترك الان </a>
+                }
+            }
+        }
+        @if ((!User.IsInRole("ServiceProvider")))
+        {
+            <a class="btn btn-success font" href="#con3">اشترك الان </a>
+        }
+
+        @*<input class="form-control me-2" style="height: 60px;" type="search" placeholder="" aria-label="Search" />*@
     </div>
 </div>
 <div id="question">ما الخدمة التي تبحث عنها اليوم ؟</div>
@@ -213,7 +236,7 @@
 
 <br />
 
-<div class="container-xxl py-5">
+<div id="serv" class="container-xxl py-5">
     <div class="container">
         <div class="row g-4 portfolio-container">
             @foreach (var item in Model)
@@ -235,7 +258,14 @@
     </div>
 </div>
 
+@{
 
+    var subscribers = (from sub in db.Subscripers
+                       join subscr in db.Subscriptions on sub.userId equals subscr.userId
+                       where subscr.Subscription_Duration == 7
+                       select sub).ToList();
+
+}
 
 @*@{
         MasterPieceMVC.Models.MyMasterPieceEntities db = new MasterPieceMVC.Models.MyMasterPieceEntities();
@@ -256,106 +286,106 @@
     }*@
 
 <br />
-<h2 class="container">الاكثر طلبا</h2>
+<h2 class="container">المقترحات</h2>
 <br />
 <br />
 <div class="container-xxl py-5">
     <div class="container">
         <div class="row g-4 portfolio-container">
-            @*@foreach (var item in result)
-                {
-                    <div class="col-lg-3 col-md-6 portfolio-item second wow fadeInUp" data-wow-delay="0.1s">
-                        <a href="WebForm8.aspx" style="color: black; text-decoration: none">
-                            <div data-inviewport="scale" class="card col-lg-3 col-md-6" style="width: 18rem;">
-                                <img src="~/pic/" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <p class="card-text">@item. @item.Subscriper.First_Name </p>
-                                    <p style="font-size: 14px;" class="card-text">@item.Subscriper.Service.Service_Name</p>
-                                    <div style="text-align: right;">
-                                        <span class="fa fa-star"></span>
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star checked"></span>
-                                    </div>
+            @foreach (var item in subscribers)
+            {
+                <div class="col-lg-3 col-md-6 portfolio-item second wow fadeInUp" data-wow-delay="0.1s">
+                    <a href="/Subscripers/SingleSub/@item.Subscriper_Id" style="color: black; text-decoration: none">
+                        <div data-inviewport="scale" class="card col-lg-3 col-md-6" style="width: 18rem;">
+                            <img src="~/pic/@item.Subscriper_Photo" class="card-img-top" alt="..." style="height:15rem;">
+                            <div class="card-body">
+                                <p class="card-text">@item.Last_Name @item.First_Name </p>
+                                <p style="font-size: 14px;" class="card-text">@item.Service.Service_Name</p>
+                                <div style="text-align: right;">
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
                                 </div>
                             </div>
-                        </a>
-                    </div>
-                }*@
+                        </div>
+                    </a>
+                </div>
+            }
 
-            <div class="col-lg-3 col-md-6 portfolio-item second wow fadeInUp" data-wow-delay="0.1s">
-                <a href="WebForm8.aspx" style="color: black; text-decoration: none">
-                    <div data-inviewport="scale" class="card col-lg-3 col-md-6" style="width: 18rem;">
-                        <img src="~/pic/man1.png" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <p class="card-text">محمد سعيد</p>
-                            <p style="font-size: 14px;" class="card-text">كهربائي</p>
-                            <div style="text-align: right;">
-                                <span class="fa fa-star"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
+            @*<div class="col-lg-3 col-md-6 portfolio-item second wow fadeInUp" data-wow-delay="0.1s">
+                    <a href="WebForm8.aspx" style="color: black; text-decoration: none">
+                        <div data-inviewport="scale" class="card col-lg-3 col-md-6" style="width: 18rem;">
+                            <img src="~/pic/man1.png" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <p class="card-text">محمد سعيد</p>
+                                <p style="font-size: 14px;" class="card-text">كهربائي</p>
+                                <div style="text-align: right;">
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-6 portfolio-item second wow fadeInUp" data-wow-delay="0.1s">
-                <a href="WebForm8.aspx" style="color: black; text-decoration: none">
-                    <div data-inviewport="scale" class="card col-lg-3 col-md-6" style="width: 18rem;">
-                        <img src="~/pic/man1.png" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <p class="card-text">محمد سعيد</p>
-                            <p style="font-size: 14px;" class="card-text">كهربائي</p>
-                            <div style="text-align: right;">
-                                <span class="fa fa-star"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-6 portfolio-item second wow fadeInUp" data-wow-delay="0.1s">
+                    <a href="WebForm8.aspx" style="color: black; text-decoration: none">
+                        <div data-inviewport="scale" class="card col-lg-3 col-md-6" style="width: 18rem;">
+                            <img src="~/pic/man1.png" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <p class="card-text">محمد سعيد</p>
+                                <p style="font-size: 14px;" class="card-text">كهربائي</p>
+                                <div style="text-align: right;">
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-6 portfolio-item second wow fadeInUp" data-wow-delay="0.1s">
-                <a href="WebForm8.aspx" style="color: black; text-decoration: none">
-                    <div data-inviewport="scale" class="card col-lg-3 col-md-6" style="width: 18rem;">
-                        <img src="~/pic/man1.png" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <p class="card-text">محمد سعيد</p>
-                            <p style="font-size: 14px;" class="card-text">كهربائي</p>
-                            <div style="text-align: right;">
-                                <span class="fa fa-star"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-6 portfolio-item second wow fadeInUp" data-wow-delay="0.1s">
+                    <a href="WebForm8.aspx" style="color: black; text-decoration: none">
+                        <div data-inviewport="scale" class="card col-lg-3 col-md-6" style="width: 18rem;">
+                            <img src="~/pic/man1.png" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <p class="card-text">محمد سعيد</p>
+                                <p style="font-size: 14px;" class="card-text">كهربائي</p>
+                                <div style="text-align: right;">
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-6 portfolio-item second wow fadeInUp" data-wow-delay="0.1s">
-                <a href="WebForm8.aspx" style="color: black; text-decoration: none">
-                    <div data-inviewport="scale" class="card col-lg-3 col-md-6" style="width: 18rem;">
-                        <img src="~/pic/man1.png" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <p class="card-text">محمد سعيد</p>
-                            <p style="font-size: 14px;" class="card-text">كهربائي</p>
-                            <div style="text-align: right;">
-                                <span class="fa fa-star"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-6 portfolio-item second wow fadeInUp" data-wow-delay="0.1s">
+                    <a href="WebForm8.aspx" style="color: black; text-decoration: none">
+                        <div data-inviewport="scale" class="card col-lg-3 col-md-6" style="width: 18rem;">
+                            <img src="~/pic/man1.png" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <p class="card-text">محمد سعيد</p>
+                                <p style="font-size: 14px;" class="card-text">كهربائي</p>
+                                <div style="text-align: right;">
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </a>
-            </div>
+                    </a>
+                </div>*@
 
 
         </div>
@@ -364,7 +394,7 @@
 
 <br />
 <br />
-@if (!User.IsInRole("ServiceProvider"))
+@if ((!User.IsInRole("ServiceProvider")))
 {
     <div id="con3">
         <div id="gray" class="container">
@@ -373,19 +403,33 @@
         </div>
     </div>
 }
-    <script>
-        const inViewport = (entries, observer) => {
-            entries.forEach(entry => {
-                entry.target.classList.toggle("is-inViewport", entry.isIntersecting);
-            });
-        };
+@if (user != "" && (User.IsInRole("ServiceProvider")))
+{
+    var shown = db.Subscripers.FirstOrDefault(x => x.AspNetUser.Email == user).Shown;
+    if (shown == false)
+    {
+        <div id="con3">
+            <div id="gray" class="container">
+                <div id="join">!انضم الى مصلحكُم و قدم خدمتك الان</div>
+                <a href="/Prices/IndexUser" class="btn btn-success" style="background-color: #45962C; font-size: 35px;">اشترك الان</a>
+            </div>
+        </div>
+    }
+}
 
-        const Obs = new IntersectionObserver(inViewport);
-        const obsOptions = {};
-
-        // Attach observer to every [data-inviewport] element:
-        const ELs_inViewport = document.querySelectorAll('[data-inviewport]');
-        ELs_inViewport.forEach(EL => {
-            Obs.observe(EL, obsOptions);
+<script>
+    const inViewport = (entries, observer) => {
+        entries.forEach(entry => {
+            entry.target.classList.toggle("is-inViewport", entry.isIntersecting);
         });
-    </script>
+    };
+
+    const Obs = new IntersectionObserver(inViewport);
+    const obsOptions = {};
+
+    // Attach observer to every [data-inviewport] element:
+    const ELs_inViewport = document.querySelectorAll('[data-inviewport]');
+    ELs_inViewport.forEach(EL => {
+        Obs.observe(EL, obsOptions);
+    });
+</script>

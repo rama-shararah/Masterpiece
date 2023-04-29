@@ -76,7 +76,7 @@
           <Property Name="Comment_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="userId" Type="nvarchar" MaxLength="128" />
           <Property Name="Subscriper_Id" Type="int" />
-          <Property Name="Comment" Type="varchar" MaxLength="255" />
+          <Property Name="Comment" Type="nvarchar" MaxLength="255" />
           <Property Name="Comment_Date" Type="date" />
           <Property Name="Accept" Type="bit" />
         </EntityType>
@@ -93,7 +93,7 @@
             <PropertyRef Name="Request_Id" />
           </Key>
           <Property Name="Request_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Request_Date" Type="date" />
+          <Property Name="Request_Date" Type="datetime" />
           <Property Name="Lantitude" Type="decimal" Precision="18" Scale="6" />
           <Property Name="Longtitude" Type="decimal" Precision="18" Scale="6" />
           <Property Name="userId" Type="nvarchar" MaxLength="128" />
@@ -493,7 +493,7 @@
           <Property Name="Comment_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="userId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="Subscriper_Id" Type="Int32" />
-          <Property Name="Comment1" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Comment1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Comment_Date" Type="DateTime" Precision="0" />
           <Property Name="Accept" Type="Boolean" />
           <NavigationProperty Name="AspNetUser" Relationship="MyMasterPieceModel.FK__Comments__userId__534D60F1" FromRole="Comment" ToRole="AspNetUser" />
@@ -512,7 +512,7 @@
             <PropertyRef Name="Request_Id" />
           </Key>
           <Property Name="Request_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Request_Date" Type="DateTime" Precision="0" />
+          <Property Name="Request_Date" Type="DateTime" Precision="3" />
           <Property Name="Lantitude" Type="Decimal" Precision="18" Scale="6" />
           <Property Name="Longtitude" Type="Decimal" Precision="18" Scale="6" />
           <Property Name="userId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />

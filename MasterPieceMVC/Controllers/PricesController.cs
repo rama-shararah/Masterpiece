@@ -4,8 +4,10 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using MasterPieceMVC.Models;
 using Microsoft.AspNet.Identity;
 
@@ -26,6 +28,8 @@ namespace MasterPieceMVC.Controllers
         public ActionResult Pay([Bind(Include = "Price_Id,Duration,Price1")] Price price, decimal payment)
         {
             string userId = User.Identity.GetUserId();
+            var roleId = db.AspNetUserRoles.FirstOrDefault(x => x.UserId == userId);
+            
 
             DateTime currentDate = DateTime.Now.Date;
             DateTime end = currentDate.AddDays((double)price.Duration);
@@ -39,10 +43,27 @@ namespace MasterPieceMVC.Controllers
 
 
             };
+
+            if (ModelState.IsValid)
+            {
+
+                db.Subscriptions.Add(subscription);
+
+                db.SaveChanges();
+            }
+            if (roleId.RoleId == "2")
+            {
+                var shown = db.Subscripers.SingleOrDefault(x => x.userId == userId);
+                shown.Shown = true;
+                db.SaveChanges();
+                return RedirectToAction("SubProfile", "Subscripers");
+
+            }
+
             //var role = db.AspNetUserRoles.Where(s => s.UserId.Equals(userId)).Single();
             //role.RoleId = "2";
             var userRole = db.AspNetUserRoles.SingleOrDefault(x => x.UserId == userId);
-            if (userRole != null)
+            if (userRole != null && userRole.RoleId=="3")
             {
                 db.AspNetUserRoles.Remove(userRole);
                 db.SaveChanges();
@@ -52,13 +73,8 @@ namespace MasterPieceMVC.Controllers
 
 
 
-            if (ModelState.IsValid)
-            {
-
-                db.Subscriptions.Add(subscription);
-
-                db.SaveChanges();
-            }
+           
+           
             return RedirectToAction("Form", "Services");
             
         }

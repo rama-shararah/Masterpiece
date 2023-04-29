@@ -5,54 +5,54 @@
     Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
 
-<h2>Index</h2>
+<style>
+    #request {
+        color: var(--primary);
+        background: #FFFFFF;
+        border-color: var(--primary);
+    }
+</style>
+<div class="container-fluid pt-4 px-4">
+    @*<p>
+        @Html.ActionLink("Create New", "Create")
+    </p>*@
+    <div class="table-responsive">
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Request_Date)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Lantitude)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Longtitude)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AspNetUser.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Subscriper.userId)
-        </th>
-        <th></th>
-    </tr>
+        <table class="table text-start align-middle table-bordered table-hover mb-0">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Request_Date)
+                </th>
+          
+                <th>
+                   user Email
+                </th>
+                <th>
+                    Service Provider
+                </th>
+                <th></th>
+            </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Request_Date)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Lantitude)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Longtitude)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AspNetUser.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Subscriper.userId)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Request_Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Request_Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Request_Id })
-        </td>
-    </tr>
-}
-
-</table>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Request_Date)
+                    </td>
+          
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AspNetUser.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Subscriper.First_Name)
+                    </td>
+                    <td>
+                       
+                        @Html.ActionLink("Details", "Details", new { id = item.Request_Id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Request_Id })
+                    </td>
+                </tr>
+            }
+        </table>
+        </div>
+    </div>
