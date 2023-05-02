@@ -143,10 +143,11 @@
     <Property Name="userId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
     <Property Name="Subscriper_Id" Type="Int32" />
     <Property Name="Comment1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="Comment_Date" Type="DateTime" Precision="0" />
+    <Property Name="Comment_Date" Type="DateTime" Precision="3" />
     <Property Name="Accept" Type="Boolean" />
     <NavigationProperty Name="AspNetUser" Relationship="MyMasterPieceModel.FK__Comments__userId__534D60F1" FromRole="Comment" ToRole="AspNetUser" />
     <NavigationProperty Name="Subscriper" Relationship="MyMasterPieceModel.FK__Comments__Subscr__5441852A" FromRole="Comment" ToRole="Subscriper" />
+    <Property Name="Rate" Type="Int32" />
   </EntityType>
   <EntityType Name="Price">
     <Key>
@@ -168,6 +169,7 @@
     <Property Name="Subscriper_Id" Type="Int32" />
     <NavigationProperty Name="AspNetUser" Relationship="MyMasterPieceModel.FK_Requests_AspNetUsers" FromRole="Request" ToRole="AspNetUser" />
     <NavigationProperty Name="Subscriper" Relationship="MyMasterPieceModel.FK__Requests__Subscr__656C112C" FromRole="Request" ToRole="Subscriper" />
+    <Property Name="Accept" Type="Boolean" />
   </EntityType>
   <EntityType Name="Service">
     <Key>

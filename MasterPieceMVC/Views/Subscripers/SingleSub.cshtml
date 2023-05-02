@@ -3,6 +3,8 @@
 @{
     ViewBag.Title = "SingleSub";
     Layout = "~/Views/Shared/MyLayout.cshtml";
+
+
 }
 
 <style>
@@ -51,6 +53,12 @@
     ::placeholder {
         text-align: right;
     }
+
+    .coment-bottom {
+        border: 1px solid #E6E6E6;
+        border-radius: 10px;
+        margin:0% 5% 5% 5%;
+    }
 </style>
 
 
@@ -68,13 +76,32 @@
                 <div class="row mt-2">
                     <div class="col-md-8">
                         <div style="text-align: right;">
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
+                            @{
+                                MasterPieceMVC.Models.MyMasterPieceEntities db = new MasterPieceMVC.Models.MyMasterPieceEntities();
+                                var count = db.Comments.Where(x => x.Subscriper_Id == Model.Subscriper_Id).Select(x => x.Rate).ToList().Count();
+                                var sum = db.Comments.Where(x => x.Subscriper_Id == Model.Subscriper_Id).Select(x => x.Rate).ToList().Sum();
+                                
+                                if (count == 0)
+                                {
+                                    count = 1;
+                                }
+                                var avr = sum / count;
+
+
+                            }
+                            @for (int i = 0; i < avr; i++)
+                            {
+                                <span class="fa fa-star checked"></span>
+                            }
+                            @for (int i = 0; i < (5 - avr); i++)
+                            {
+                                <span class="fa fa-star"></span>
+                            }
+
+
                         </div>
-                    </div>
+        </div>
+             
                     <div class="col-md-4">
                         التقييم
                     </div>
@@ -114,10 +141,14 @@
                         ساعات العمل
                     </div>
                 </div>
-
+                @{
+                    var id = Model.Subscriper_Id;
+                    
+                    var numOfClient = db.Requests.Where(x => x.Subscriper_Id == id).Count();
+                }
                 <div class="row mt-3">
                     <div class="col-md-8">
-                        2
+                        @numOfClient
 
                     </div>
                     <div class="col-md-4">
@@ -133,22 +164,36 @@
                         وصف الخدمة
                     </div>
                 </div>
+                @{
+                    var user = User.Identity.Name;
+                    var himself = db.Subscripers.FirstOrDefault(x => x.Subscriper_Id == Model.Subscriper_Id).AspNetUser.Email;
+                 }
                 <div class="row mt-3">
                     <div class="col-md-8">
                         @{ if (User.IsInRole("ServiceProvider") || User.IsInRole("User"))
                             {
-                                <a class="btn btn-success launch" data-toggle="modal" data-target="#staticBackdrop">
-                                    طلب الخدمة
-                                </a>
-                                    }
-                                    else
-                                    {
-                                        Session["id"] = Model.Subscriper_Id;
-                                <a class="btn btn-success launch" href="/Account/Login" >
+
+                                if (user == himself)
+                                {
+
+                                }
+                                else
+                                {
+                                    <a class="btn btn-success launch" data-toggle="modal" data-target="#staticBackdrop">
+                                        طلب الخدمة
+                                    </a>
+                                }
+
+                            }
+                            else
+                            {
+                                Session["id"] = Model.Subscriper_Id;
+                                <a class="btn btn-success launch" href="/Account/Login">
                                     طلب الخدمة
                                 </a>
                             }
                         }
+
                     </div>
                     <div class="col-md-4">
                     </div>
@@ -171,8 +216,8 @@
 <br />
 <br />
 @{
-    MasterPieceMVC.Models.MyMasterPieceEntities db = new MasterPieceMVC.Models.MyMasterPieceEntities();
-    var user = User.Identity.Name;
+  
+    
     var users = db.AspNetUsers.FirstOrDefault(s => s.Email == user);
 }
 <div class="container">
@@ -181,30 +226,99 @@
 <section>
     <div class="container my-5 py-5 text-dark">
         <div class="row d-flex justify-content-center">
-            <div class="coment-bottom bg-white p-2 px-4">
-                @if(User.IsInRole("ServiceProvider") || User.IsInRole("User")) { 
-                 using (Html.BeginForm("Comment", "Comments", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            @if (User.IsInRole("ServiceProvider") || User.IsInRole("User"))
+            {
+                if (user == himself)
                 {
-                    @Html.AntiForgeryToken()
-                <div class="d-flex flex-row add-comment-section mt-4 mb-4">
-
-                    <input class="btn btn-success" style="width: 15%; margin-right: 1rem;" value="تعليق" type="submit">
-                    <input type="text" name="Comment1" class="form-control mr-3" placeholder="اضف تعليق">
-                    <input hidden name="Subscriper_Id" type="number" value="@Model.Subscriper_Id" />
-
-                    <img class="rounded-circle shadow-1-strong me-3"
-                         src="~/pic/@users.Photo" alt="" width="55"
-                         height="55" />
-
-
-                </div>
                 }
+                else
+                {
+
+                    using (Html.BeginForm("Comment", "Comments", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="coment-bottom bg-white p-2 px-4">
+
+                            <div class="d-flex flex-row add-comment-section mt-4 mb-4">
+
+                                <input class="btn btn-success" style="width: 15%; margin-right: 1rem;" value="تعليق" type="submit">
+                                <input type="text" name="Comment1" class="form-control mr-3" placeholder="اضف تعليق">
+                                <input hidden name="Subscriper_Id" type="number" value="@Model.Subscriper_Id" />
+
+                                <img class="rounded-circle shadow-1-strong me-3"
+                                     src="~/pic/@users.Photo" alt="" width="55"
+                                     height="55" />
+
+
+
+
+                            </div>
+                            <style>
+
+                                #ratee {
+                                    text-align: right;
+                                    margin-right: 5.5rem;
+                                }
+
+                                .rating {
+                                    display: inline-block;
+                                    direction: rtl;
+                                }
+
+                                    .rating input {
+                                        display: none;
+                                    }
+
+                                    .rating label {
+                                        font-size: 25px;
+                                        color: #ddd;
+                                        cursor: pointer;
+                                    }
+
+                                        .rating label:hover,
+                                        .rating label:hover ~ label,
+                                        .rating input:checked ~ label {
+                                            color: #ffdd00;
+                                        }
+                            </style>
+                            <div id="ratee">
+
+                                <div class="rating">
+                                    <input type="radio" id="star5" name="rating" value="5" />
+                                    <label for="star5" title="5 stars">&#9733;</label>
+                                    <input type="radio" id="star4" name="rating" value="4" />
+                                    <label for="star4" title="4 stars">&#9733;</label>
+                                    <input type="radio" id="star3" name="rating" value="3" />
+                                    <label for="star3" title="3 stars">&#9733;</label>
+                                    <input type="radio" id="star2" name="rating" value="2" />
+                                    <label for="star2" title="2 stars">&#9733;</label>
+                                    <input type="radio" id="star1" name="rating" value="1" />
+                                    <label for="star1" title="1 star">&#9733;</label>
+                                </div>
+                                : تقييم
+                            </div>
+                            <script>
+                                function getRating() {
+                                    var rating = 0;
+                                    var elements = document.getElementsByName("rating");
+                                    for (var i = 0; i < elements.length; i++) {
+                                        if (elements[i].checked) {
+                                            rating = elements[i].value;
+                                            break;
+                                        }
+                                    }
+                                    return rating;
+                                }
+                            </script>
+
+                        </div>
+                    }
                 }
-                </div>
+            }
             <div class="col-md-11 col-lg-9 col-xl-7">
                 @{
 
-                    var comment = db.Comments.Where(x => x.Accept == true).Where(x=>x.Subscriper_Id==Model.Subscriper_Id).ToList();
+                    var comment = db.Comments.Where(x => x.Accept == true).Where(x => x.Subscriper_Id == Model.Subscriper_Id).ToList();
                 }
                 @foreach (var item in comment)
                 {
@@ -213,11 +327,14 @@
                             <div class="card-body p-4">
                                 <div class="con">
                                     <div class="col-md-3" style="text-align: right;">
-                                        <span class="fa fa-star"></span>
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star checked"></span>
+                                        @for (int i = 0; i < item.Rate; i++)
+                                        {
+                                            <span class="fa fa-star checked"></span>
+                                        }
+                                        @for (int i = 0; i < (5 - item.Rate); i++)
+                                        {
+                                            <span class="fa fa-star"></span>
+                                        }
                                     </div>
                                     <div class="col-md-9">
                                         <h5>@item.AspNetUser.Email</h5>

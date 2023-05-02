@@ -262,7 +262,7 @@
 
     var subscribers = (from sub in db.Subscripers
                        join subscr in db.Subscriptions on sub.userId equals subscr.userId
-                       where subscr.Subscription_Duration == 7
+                       where subscr.Subscription_Duration == 7 where sub.Status==true
                        select sub).ToList();
 
 }
@@ -292,8 +292,11 @@
 <div class="container-xxl py-5">
     <div class="container">
         <div class="row g-4 portfolio-container">
+            @{ int counter = 0;} 
             @foreach (var item in subscribers)
             {
+                if (counter < 4)
+                {
                 <div class="col-lg-3 col-md-6 portfolio-item second wow fadeInUp" data-wow-delay="0.1s">
                     <a href="/Subscripers/SingleSub/@item.Subscriper_Id" style="color: black; text-decoration: none">
                         <div data-inviewport="scale" class="card col-lg-3 col-md-6" style="width: 18rem;">
@@ -302,91 +305,37 @@
                                 <p class="card-text">@item.Last_Name @item.First_Name </p>
                                 <p style="font-size: 14px;" class="card-text">@item.Service.Service_Name</p>
                                 <div style="text-align: right;">
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
+                                    @{
+                                        
+                                        var count = db.Comments.Where(x => x.Subscriper_Id == item.Subscriper_Id).Select(x => x.Rate).ToList().Count();
+                                        var sum = db.Comments.Where(x => x.Subscriper_Id == item.Subscriper_Id).Select(x => x.Rate).ToList().Sum();
+
+                                        if (count == 0)
+                                        {
+                                            count = 1;
+                                        }
+                                        var avr = sum / count;
+
+
+                                    }
+                                    @for (int i = 0; i < avr; i++)
+                                    {
+                                        <span class="fa fa-star checked"></span>
+                                    }
+                                    @for (int i = 0; i < (5 - avr); i++)
+                                    {
+                                        <span class="fa fa-star"></span>
+                                    }
+
+
                                 </div>
                             </div>
                         </div>
                     </a>
                 </div>
+                }
+                counter++;
             }
-
-            @*<div class="col-lg-3 col-md-6 portfolio-item second wow fadeInUp" data-wow-delay="0.1s">
-                    <a href="WebForm8.aspx" style="color: black; text-decoration: none">
-                        <div data-inviewport="scale" class="card col-lg-3 col-md-6" style="width: 18rem;">
-                            <img src="~/pic/man1.png" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <p class="card-text">محمد سعيد</p>
-                                <p style="font-size: 14px;" class="card-text">كهربائي</p>
-                                <div style="text-align: right;">
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-3 col-md-6 portfolio-item second wow fadeInUp" data-wow-delay="0.1s">
-                    <a href="WebForm8.aspx" style="color: black; text-decoration: none">
-                        <div data-inviewport="scale" class="card col-lg-3 col-md-6" style="width: 18rem;">
-                            <img src="~/pic/man1.png" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <p class="card-text">محمد سعيد</p>
-                                <p style="font-size: 14px;" class="card-text">كهربائي</p>
-                                <div style="text-align: right;">
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-3 col-md-6 portfolio-item second wow fadeInUp" data-wow-delay="0.1s">
-                    <a href="WebForm8.aspx" style="color: black; text-decoration: none">
-                        <div data-inviewport="scale" class="card col-lg-3 col-md-6" style="width: 18rem;">
-                            <img src="~/pic/man1.png" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <p class="card-text">محمد سعيد</p>
-                                <p style="font-size: 14px;" class="card-text">كهربائي</p>
-                                <div style="text-align: right;">
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-3 col-md-6 portfolio-item second wow fadeInUp" data-wow-delay="0.1s">
-                    <a href="WebForm8.aspx" style="color: black; text-decoration: none">
-                        <div data-inviewport="scale" class="card col-lg-3 col-md-6" style="width: 18rem;">
-                            <img src="~/pic/man1.png" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <p class="card-text">محمد سعيد</p>
-                                <p style="font-size: 14px;" class="card-text">كهربائي</p>
-                                <div style="text-align: right;">
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>*@
-
 
         </div>
     </div>

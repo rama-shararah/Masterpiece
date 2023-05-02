@@ -57,6 +57,9 @@
     #img {
         border: 1px solid #E6E6E6;
     }
+    h2{
+        text-align:center;
+    }
 </style>
 
 <div class="container">
@@ -127,47 +130,61 @@
             </div>
         </div>
     </div>
-    @*@{ 
+    @{
 
-        MasterPieceMVC.Models.MyMasterPieceEntities db = new MasterPieceMVC.Models.MyMasterPieceEntities();
-        var request = db.Requests.Where(x => x.userId == );
+
+        var request = db.Requests.Where(x => x.AspNetUser.Email == user).OrderByDescending(o => o.Request_Date);
+        
     }
-    @foreach (var item in Model)
-    {
-    <div class="d-flex flex-start mb-4">
-        <div class="card w-100">
-            <div class="card-body p-4">
-                <div class="con">
+    
+<div class="container my-5 py-5 text-dark">
+    <h2>سجل الطلبات</h2>
+    <br />
+    <div class="row d-flex justify-content-center">
+        @foreach (var item in request)
+        {
+            <div class="d-flex flex-start mb-4">
 
-                    <div class="col-md-2" style="text-align: right;">
-                        <a href="/Requests/Map/@item.Request_Id">
-                            <h5>الموقع</h5>
-                        </a>
+                <div class="card w-100">
+                    <div class="card-body p-4">
+                        <div class="con">
 
+                            <div class="col-md-2" style="text-align: right;">
+
+                                @if (item.Accept == true)
+                                {<h5 style="color:green;">مقبول</h5>}
+                                @if (item.Accept == false)
+                                {<h5 style="color:red">مرفوض</h5>}
+                                @if (item.Accept == null)
+                                {<h5>....قيد القبول</h5>}
+
+
+                            </div>
+                            <div class="col-md-4" style="text-align: right;">
+                                <h5>رقم الهاتف: @item.Subscriper.AspNetUser.PhoneNumber</h5>
+
+                            </div>
+                            <div class="col-md-3">
+                                <h5>@item.Subscriper.Last_Name @item.Subscriper.First_Name</h5>
+                            </div>
+                            <div class="col-md-3">
+                                <h5>@item.Request_Date</h5>
+
+                            </div>
+
+                        </div>
                     </div>
-                    <div class="col-md-4" style="text-align: right;">
-                        <h5>رقم الهاتف:@item.AspNetUser.PhoneNumber</h5>
-
-                    </div>
-                    <div class="col-md-3">
-                        <h5>@item.AspNetUser.Location</h5>
-                    </div>
-                    <div class="col-md-3">
-                        <h5>@item.Request_Date<i style="font-size: 10px; color: red; margin-left: 5%;" class="fa-solid fa-circle"></i></h5>
-
-                    </div>
-
                 </div>
+
             </div>
-        </div>
+
+        }
+
 
     </div>
-
-    }
-    }*@
-
 </div>
+    </div>
 
 
-<br />
-<br />
+        <br />
+        <br />

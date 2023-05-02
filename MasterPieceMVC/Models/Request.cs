@@ -20,6 +20,7 @@ namespace MasterPieceMVC.Models
         public Nullable<decimal> Longtitude { get; set; }
         public string userId { get; set; }
         public Nullable<int> Subscriper_Id { get; set; }
+        public Nullable<bool> Accept { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }
         public virtual Subscriper Subscriper { get; set; }

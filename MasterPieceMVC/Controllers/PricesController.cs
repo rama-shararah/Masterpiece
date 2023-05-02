@@ -33,6 +33,20 @@ namespace MasterPieceMVC.Controllers
 
             DateTime currentDate = DateTime.Now.Date;
             DateTime end = currentDate.AddDays((double)price.Duration);
+            if (roleId.RoleId == "2")
+            {
+                var shown = db.Subscripers.SingleOrDefault(x => x.userId == userId);
+                var update = db.Subscriptions.SingleOrDefault(x => x.userId == userId);
+                shown.Shown = true;
+                update.Subscription_Amount = payment;
+                update.Subscription_Duration = price.Duration;
+                update.Subscription_Beg = currentDate;
+                update.Subscription_End = end;
+                db.SaveChanges();
+                return RedirectToAction("SubProfile", "Subscripers");
+
+            }
+            else { 
             Subscription subscription = new Subscription
             {
                 Subscription_Amount= payment,
@@ -51,14 +65,7 @@ namespace MasterPieceMVC.Controllers
 
                 db.SaveChanges();
             }
-            if (roleId.RoleId == "2")
-            {
-                var shown = db.Subscripers.SingleOrDefault(x => x.userId == userId);
-                shown.Shown = true;
-                db.SaveChanges();
-                return RedirectToAction("SubProfile", "Subscripers");
-
-            }
+           
 
             //var role = db.AspNetUserRoles.Where(s => s.UserId.Equals(userId)).Single();
             //role.RoleId = "2";
@@ -76,7 +83,8 @@ namespace MasterPieceMVC.Controllers
            
            
             return RedirectToAction("Form", "Services");
-            
+            }
+
         }
 
         public ActionResult IndexUser()

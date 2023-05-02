@@ -170,6 +170,10 @@
             int modelDuration = Convert.ToInt32(item.Duration);
             int month = modelDuration / 30;
 
+            if (item.Price1 == 0 && (User.IsInRole("ServiceProvider")))
+            {
+                continue;
+            }
             <div id="row" class="row">
 
                 <div class="col-md-12">

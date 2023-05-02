@@ -70,6 +70,7 @@
     <EntitySetMapping Name="Comments">
       <EntityTypeMapping TypeName="MyMasterPieceModel.Comment">
         <MappingFragment StoreEntitySet="Comments">
+          <ScalarProperty Name="Rate" ColumnName="Rate" />
           <ScalarProperty Name="Accept" ColumnName="Accept" />
           <ScalarProperty Name="Comment_Date" ColumnName="Comment_Date" />
           <ScalarProperty Name="Comment1" ColumnName="Comment" />
@@ -91,6 +92,7 @@
     <EntitySetMapping Name="Requests">
       <EntityTypeMapping TypeName="MyMasterPieceModel.Request">
         <MappingFragment StoreEntitySet="Requests">
+          <ScalarProperty Name="Accept" ColumnName="Accept" />
           <ScalarProperty Name="Subscriper_Id" ColumnName="Subscriper_Id" />
           <ScalarProperty Name="userId" ColumnName="userId" />
           <ScalarProperty Name="Longtitude" ColumnName="Longtitude" />

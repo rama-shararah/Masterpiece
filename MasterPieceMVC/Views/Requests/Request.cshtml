@@ -8,7 +8,8 @@
     @@media (min-width: 1200px) {
         .col-xl-7 {
             flex: 0 0 auto;
-            width: 90%;
+            width: 100%;
+           
         }
     }
 
@@ -50,18 +51,36 @@ else {
 
                     foreach (var item in Model)
                     {
-                        <div class="d-flex flex-start mb-4">
+
+
+<div class="d-flex flex-start mb-4">
                             <div class="card w-100">
                                 <div class="card-body p-4">
                                     <div class="con">
+                                        <div class="col-md-1" style="text-align: right;">
+                                            @if (item.Accept == null)
+                                            {
+                                                <a href="/Requests/EditSubRequest/@item.Request_Id">
+                                                    <h5>قبول\رفض</h5>
+                                                </a>
+                                            }
+                                            @if (item.Accept == true)
+                                            {
+                                                <h5 style="color:green">مقبول</h5>
+                                            }
+                                            @if (item.Accept ==false)
+                                            {
+                                                <h5 style="color:red">مرفوض</h5>
+                                            }
 
+                                        </div>
                                         <div class="col-md-2" style="text-align: right;">
                                             <a href="/Requests/Map/@item.Request_Id">
                                                 <h5>الموقع</h5>
                                             </a>
 
                                         </div>
-                                        <div class="col-md-4" style="text-align: right;">
+                                        <div class="col-md-3" style="text-align: right;">
                                             <h5>رقم الهاتف:@item.AspNetUser.PhoneNumber</h5>
 
                                         </div>
@@ -69,9 +88,15 @@ else {
                                             <h5>@item.AspNetUser.Location</h5>
                                         </div>
                                         <div class="col-md-3">
-                                            <h5>@item.Request_Date<i style="font-size: 10px; color: red; margin-left: 5%;" class="fa-solid fa-circle"></i></h5>
+                                            <h5>
+                                                @item.Request_Date
+                                            @if (item.Accept == null)
+                                            {
+                                                <i style="font-size: 10px; color: red; margin-left: 5%;" class="fa-solid fa-circle"></i>
+                                            }
+                                        </h5>
 
-                                        </div>
+                                    </div>
 
                                     </div>
                                 </div>
@@ -79,8 +104,8 @@ else {
 
                         </div>
 
+                        }
                     }
-                }
 
 
                 }

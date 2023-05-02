@@ -20,6 +20,7 @@ namespace MasterPieceMVC.Models
         public string Comment1 { get; set; }
         public Nullable<System.DateTime> Comment_Date { get; set; }
         public Nullable<bool> Accept { get; set; }
+        public Nullable<int> Rate { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }
         public virtual Subscriper Subscriper { get; set; }

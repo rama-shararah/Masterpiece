@@ -1,0 +1,66 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/MyLayout.cshtml";
+}
+<style>
+    #parent {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 120vh;
+        z-index: 0;
+    }
+
+    #child {
+        width: 90%;
+        height: 100vh;
+        border: 1px solid #a9a9a9;
+        border-radius: 120px;
+        box-shadow: 25px 25px #E6E6E6;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: space-evenly;
+        padding: 7%;
+        text-align: right;
+    }
+
+    #img {
+        width: 37%;
+        z-index: 3;
+        position: absolute;
+        left: 9%;
+        top: 12.3rem;
+    }
+
+    #title {
+        font-size: 40px;
+        float: right;
+    }
+
+    #text {
+        font-size: 22px;
+        width: 70%;
+    }
+</style>
+<div class="container" id="parent">
+    <div id="child">
+        <div id="title">حول موقع مصلحكُم</div>
+        <br />
+        <div id="text">
+            !ترحيباً بكم في موقعنا للخدمات العامة في إربد<br /> <br />نحن هنا لربط مقدمي الخدمات مع المستفيدين بسرعة وسهولة، حتى تتمكنوا من الحصول على المساعدة التي تحتاجون إليها عندما تحتاجونها.
+
+            نحن ندرك أن العثور على مقدم الخدمة المناسب يمكن أن يكون أمراً مزعجاً، خاصةً عندما تكون في عجلة من أمرك أو لا تعرف أين تبحث. لهذا السبب، قمنا بإنشاء هذه المنصة لتسهيل عملية العثور على مقدمي الخدمات في منطقتك والتواصل معهم
+
+                                                                <br />  <br /> تم تصميم منصتنا لتكون سهلة الاستخدام وبديهية، حتى تتمكن بسهولة من البحث عن الخدمات، مقارنة الأسعار والمراجعات، وحجز مواعيد مع مقدمي الخدمات. سواء كنت بحاجة إلى سباك، بستاني، كهربائي، أو أي نوع آخر من الخدمات، يمكنك العثور عليه هنا.
+
+                                                                         نحن ملتزمون بتوفير خدمة عالية الجودة لكل من مقدمي الخدمات والمستفيدين، ونعمل باستمرار على تحسين منصتنا وإضافة ميزات جديدة. نحن نؤمن بأن الجميع يستحق الوصول إلى خدمات موثوقة وبأسعار معقولة، ونحن فخورون بأن نكون جزءاً من تحقيق ذلك<br /><br />
+
+            شكراً لاختياركم منصتنا لاحتياجاتكم الخدمية، ونتطلع إلى خدمتكم قريباً
+        </div>
+    </div>
+</div>
+
+<img id="img" src="/pic/about.png" />
+

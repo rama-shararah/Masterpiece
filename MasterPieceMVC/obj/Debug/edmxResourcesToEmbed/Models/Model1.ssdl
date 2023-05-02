@@ -72,8 +72,9 @@
     <Property Name="userId" Type="nvarchar" MaxLength="128" />
     <Property Name="Subscriper_Id" Type="int" />
     <Property Name="Comment" Type="nvarchar" MaxLength="255" />
-    <Property Name="Comment_Date" Type="date" />
+    <Property Name="Comment_Date" Type="datetime" />
     <Property Name="Accept" Type="bit" />
+    <Property Name="Rate" Type="int" />
   </EntityType>
   <EntityType Name="Prices">
     <Key>
@@ -93,6 +94,7 @@
     <Property Name="Longtitude" Type="decimal" Precision="18" Scale="6" />
     <Property Name="userId" Type="nvarchar" MaxLength="128" />
     <Property Name="Subscriper_Id" Type="int" />
+    <Property Name="Accept" Type="bit" />
   </EntityType>
   <EntityType Name="Services">
     <Key>

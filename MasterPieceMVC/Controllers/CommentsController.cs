@@ -24,9 +24,9 @@ namespace MasterPieceMVC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Comment([Bind(Include = "Comment_Id,userId,Subscriper_Id,Comment1,Comment_Date,Accept")] Comment comment)
+        public ActionResult Comment([Bind(Include = "Comment_Id,userId,Subscriper_Id,Comment1,Comment_Date,Accept,Rate")] Comment comment, int rating)
         {
-            DateTime currentDate = DateTime.Now.Date;
+            DateTime currentDate = DateTime.Now;
             string userId = User.Identity.GetUserId();
 
 
@@ -36,6 +36,7 @@ namespace MasterPieceMVC.Controllers
                 Subscriper_Id = comment.Subscriper_Id,
                 Comment1 = comment.Comment1,
                 Comment_Date = currentDate,
+                Rate= rating,
 
             };
             int subId = (int)comment.Subscriper_Id;
@@ -44,7 +45,7 @@ namespace MasterPieceMVC.Controllers
             return RedirectToAction("SingleSub", "Subscripers", new { id = subId });
         }
 
-
+      
 
 
         // GET: Comments/Details/5
@@ -75,7 +76,7 @@ namespace MasterPieceMVC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Comment_Id,userId,Subscriper_Id,Comment1,Comment_Date,Accept")] Comment comment)
+        public ActionResult Create([Bind(Include = "Comment_Id,userId,Subscriper_Id,Comment1,Comment_Date,Accept,Rate")] Comment comment)
         {
             if (ModelState.IsValid)
             {
@@ -111,7 +112,7 @@ namespace MasterPieceMVC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Comment_Id,userId,Subscriper_Id,Comment1,Comment_Date,Accept")] Comment comment)
+        public ActionResult Edit([Bind(Include = "Comment_Id,userId,Subscriper_Id,Comment1,Comment_Date,Accept,Rate")] Comment comment)
         {
             if (ModelState.IsValid)
             {

@@ -170,9 +170,11 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AspNetUsersController.cs" />
     <Compile Include="Controllers\CommentsController.cs" />
+    <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PricesController.cs" />
@@ -530,7 +532,6 @@
     <Content Include="Views\Services\HomePage.cshtml" />
     <Content Include="Views\Shared\_Account.cshtml" />
     <Content Include="Views\Shared\_Layout - Copy.cshtml" />
-    <Content Include="Views\Subscriptions\IndexUser.cshtml" />
     <Content Include="Views\Prices\Create.cshtml" />
     <Content Include="Views\Prices\Delete.cshtml" />
     <Content Include="Views\Prices\Details.cshtml" />
@@ -552,6 +553,9 @@
     <Content Include="Views\Subscriptions\Dashboard.cshtml" />
     <Content Include="Views\AspNetUsers\UserProfile.cshtml" />
     <Content Include="Views\AspNetUsers\EditUserProfile.cshtml" />
+    <Content Include="Views\Contact\Index.cshtml" />
+    <Content Include="Views\About\Index.cshtml" />
+    <Content Include="Views\Requests\EditSubRequest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

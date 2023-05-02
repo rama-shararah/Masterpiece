@@ -4,94 +4,155 @@
     ViewBag.Title = "Dashboard";
     Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
+<script src="https://kit.fontawesome.com/a8b56cb52b.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-
-
-
-    <!-- Sale & Revenue Start -->
-    <div class="container-fluid pt-4 px-4">
-        <div class="row g-4">
-            <div class="col-sm-6 col-xl-3">
-                <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                    <i class="fa fa-chart-line fa-3x text-primary"></i>
-                    <div class="ms-3">
-                        <p class="mb-2">Today Sale</p>
-                        <h6 class="mb-0">$1234</h6>
-                    </div>
+@{
+    DateTime currentDate = DateTime.Now.Date;
+    string CD = currentDate.ToString("dd-MM-yyyy");
+    DateTime pre1Date = DateTime.Now.AddDays(-1).Date;
+    DateTime pre2Date = DateTime.Now.AddDays(-2).Date;
+    DateTime pre3Date = DateTime.Now.AddDays(-3).Date;
+    string pre1DateS = pre1Date.ToString("dd-MM-yyyy");
+    string pre2DateS = pre2Date.ToString("dd-MM-yyyy");
+    string pre3DateS = pre3Date.ToString("dd-MM-yyyy");
+    MasterPieceMVC.Models.MyMasterPieceEntities db = new MasterPieceMVC.Models.MyMasterPieceEntities();
+    var totalsale= db.Subscriptions.Select(x => x.Subscription_Amount).ToList().Sum();
+    var rev = db.Subscriptions.Where(x => x.Subscription_Beg == currentDate).Select(x => x.Subscription_Amount).ToList().Sum();
+    var rev1 = db.Subscriptions.Where(x => x.Subscription_Beg == pre1Date).Select(x => x.Subscription_Amount).ToList().Sum();
+    var rev2 = db.Subscriptions.Where(x => x.Subscription_Beg == pre2Date).Select(x => x.Subscription_Amount).ToList().Sum();
+    var rev3 = db.Subscriptions.Where(x => x.Subscription_Beg == pre3Date).Select(x => x.Subscription_Amount).ToList().Sum();
+    var req = db.Requests.Where(x => x.Request_Date == currentDate).Count();
+    var toralreq = db.Requests.Count();
+    var totalSub = db.Subscripers.Count();
+    var totalUsers = db.AspNetUserRoles.Where(x => x.RoleId == "3").Count();
+}
+<!-- Sale & Revenue Start -->
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-6 col-xl-4">
+            <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                <i class="fa fa-chart-line fa-3x text-primary"></i>
+                <div class="ms-3">
+                    <p class="mb-2">Today Sale</p>
+                    <h6 class="mb-0">@rev</h6>
                 </div>
             </div>
-            <div class="col-sm-6 col-xl-3">
-                <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                    <i class="fa fa-chart-bar fa-3x text-primary"></i>
-                    <div class="ms-3">
-                        <p class="mb-2">Total Sale</p>
-                        <h6 class="mb-0">$1234</h6>
-                    </div>
+        </div>
+        <div class="col-sm-6 col-xl-4">
+            <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                <i class="fa fa-chart-bar fa-3x text-primary"></i>
+                <div class="ms-3">
+                    <p class="mb-2">Total Sale</p>
+                    <h6 class="mb-0">@totalsale JD</h6>
                 </div>
             </div>
-            <div class="col-sm-6 col-xl-3">
-                <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                    <i class="fa fa-chart-area fa-3x text-primary"></i>
-                    <div class="ms-3">
-                        <p class="mb-2">Today Revenue</p>
-                        <h6 class="mb-0">$1234</h6>
-                    </div>
+        </div>
+        <div class="col-sm-6 col-xl-4">
+            <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                <i class="fa-solid fa-list-check fa-3x text-primary"></i>
+                <div class="ms-3">
+                    <p class="mb-2">Today Request</p>
+                    <h6 class="mb-0">@req JD</h6>
                 </div>
             </div>
-            <div class="col-sm-6 col-xl-3">
-                <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                    <i class="fa fa-chart-pie fa-3x text-primary"></i>
-                    <div class="ms-3">
-                        <p class="mb-2">Total Revenue</p>
-                        <h6 class="mb-0">$1234</h6>
-                    </div>
+        </div>
+        <div class="col-sm-6 col-xl-4">
+            <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                <i class="fa-solid fa-list-ol fa-3x text-primary"></i>
+                <div class="ms-3">
+                    <p class="mb-2">Total Request</p>
+                    <h6 class="mb-0">@toralreq</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-4">
+            <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                <i class="fa-solid fa-address-book fa-3x text-primary"></i>
+                <div class="ms-3">
+                    <p class="mb-2">Total Subscripers</p>
+                    <h6 class="mb-0">@totalSub</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-4">
+            <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                <i class="fa-solid fa-user fa-3x text-primary"></i>
+                <div class="ms-3">
+                    <p class="mb-2">Total Users</p>
+                    <h6 class="mb-0">@totalUsers</h6>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Sale & Revenue End -->
-    <!-- Sales Chart Start -->
-    <div class="container-fluid pt-4 px-4">
-        <div class="row g-4">
-            <div hidden="hidden" class="col-sm-12 col-xl-0">
-                <div class="bg-light text-center rounded p-4">
-                    <div class="d-flex align-items-center justify-content-between mb-4">
-                        <h6 class="mb-0">Worldwide Sales</h6>
-                        <a href="">Show All</a>
-                    </div>
-                    <canvas id="worldwide-sales"></canvas>
+</div>
+<!-- Sale & Revenue End -->
+<!-- Sales Chart Start -->
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-12 col-md-6 col-xl-4">
+            <div class="h-100 bg-light rounded p-4">
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                    <h6 class="mb-0">Calender</h6>
+                    
                 </div>
+                <div id="calender"></div>
             </div>
-            <div class="col-sm-12 col-xl-8">
-                <div class="bg-light text-center rounded p-4">
-                    <div class="d-flex align-items-center justify-content-between mb-4">
-                        <h6 class="mb-0">Revenue</h6>
+        </div>
+        <div class="col-sm-12 col-xl-8">
+            <div class="bg-light text-center rounded p-4">
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                    <h6 class="mb-0">Revenue</h6>
 
-                    </div>
-                    <canvas id="salse-revenue"></canvas>
                 </div>
+                <canvas id="salse"></canvas>
             </div>
         </div>
     </div>
-    <!-- Sales Chart End -->
+</div>
+<!-- Sales Chart End -->
+<!-- Widgets Start -->
 
-    <!-- Widgets Start -->
-    <div class="container-fluid pt-4 px-4">
-        <div class="row g-4">
+<!-- Widgets End -->
 
-            <div class="col-sm-12 col-md-6 col-xl-6">
-                <div class="h-100 bg-light rounded p-4">
-                    <div class="d-flex align-items-center justify-content-between mb-4">
-                        <h6 class="mb-0">Calender</h6>
-                        <a href="">Show All</a>
-                    </div>
-                    <div id="calender"></div>
-                </div>
-            </div>
-         
-        </div>
-    </div>
-    <!-- Widgets End -->
-  
 <br />
 <br />
+
+<script>
+    function drawChart() {
+        // Retrieve your data from an API or another source
+        const data = {
+            labels: ["@pre3DateS", "@pre2DateS", "@pre1DateS", "@CD"],
+            datasets: [
+                {
+                    label: "Revenue",
+                    data: [@rev3, @rev2, @rev1, @rev],
+                    borderColor: "#009CFF",
+                    fill: false
+                }
+            ]
+        };
+
+        // Get the canvas element and create a new chart instance
+        const canvas = document.getElementById("salse");
+        const chart = new Chart(canvas, {
+            type: "line",
+            data: data,
+            options: {
+                responsive: true,
+                scales: {
+                    yAxes: [
+                        {
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }
+                    ]
+                }
+            }
+        });
+    }
+
+    // Call the drawChart function to draw the chart
+    drawChart();
+</script>

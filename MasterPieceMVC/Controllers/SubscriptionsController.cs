@@ -10,17 +10,14 @@ using MasterPieceMVC.Models;
 
 namespace MasterPieceMVC.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class SubscriptionsController : Controller
     {
         private MyMasterPieceEntities db = new MyMasterPieceEntities();
 
         // GET: Subscriptions
-        public ActionResult IndexUser()
-        {
-           
-            return View();
-        }
 
+        
         public ActionResult Dashboard()
         {
 

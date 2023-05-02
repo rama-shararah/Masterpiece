@@ -77,8 +77,9 @@
           <Property Name="userId" Type="nvarchar" MaxLength="128" />
           <Property Name="Subscriper_Id" Type="int" />
           <Property Name="Comment" Type="nvarchar" MaxLength="255" />
-          <Property Name="Comment_Date" Type="date" />
+          <Property Name="Comment_Date" Type="datetime" />
           <Property Name="Accept" Type="bit" />
+          <Property Name="Rate" Type="int" />
         </EntityType>
         <EntityType Name="Prices">
           <Key>
@@ -98,6 +99,7 @@
           <Property Name="Longtitude" Type="decimal" Precision="18" Scale="6" />
           <Property Name="userId" Type="nvarchar" MaxLength="128" />
           <Property Name="Subscriper_Id" Type="int" />
+          <Property Name="Accept" Type="bit" />
         </EntityType>
         <EntityType Name="Services">
           <Key>
@@ -494,10 +496,11 @@
           <Property Name="userId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="Subscriper_Id" Type="Int32" />
           <Property Name="Comment1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Comment_Date" Type="DateTime" Precision="0" />
+          <Property Name="Comment_Date" Type="DateTime" Precision="3" />
           <Property Name="Accept" Type="Boolean" />
           <NavigationProperty Name="AspNetUser" Relationship="MyMasterPieceModel.FK__Comments__userId__534D60F1" FromRole="Comment" ToRole="AspNetUser" />
           <NavigationProperty Name="Subscriper" Relationship="MyMasterPieceModel.FK__Comments__Subscr__5441852A" FromRole="Comment" ToRole="Subscriper" />
+          <Property Name="Rate" Type="Int32" />
         </EntityType>
         <EntityType Name="Price">
           <Key>
@@ -519,6 +522,7 @@
           <Property Name="Subscriper_Id" Type="Int32" />
           <NavigationProperty Name="AspNetUser" Relationship="MyMasterPieceModel.FK_Requests_AspNetUsers" FromRole="Request" ToRole="AspNetUser" />
           <NavigationProperty Name="Subscriper" Relationship="MyMasterPieceModel.FK__Requests__Subscr__656C112C" FromRole="Request" ToRole="Subscriper" />
+          <Property Name="Accept" Type="Boolean" />
         </EntityType>
         <EntityType Name="Service">
           <Key>
@@ -790,6 +794,7 @@
           <EntitySetMapping Name="Comments">
             <EntityTypeMapping TypeName="MyMasterPieceModel.Comment">
               <MappingFragment StoreEntitySet="Comments">
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
                 <ScalarProperty Name="Accept" ColumnName="Accept" />
                 <ScalarProperty Name="Comment_Date" ColumnName="Comment_Date" />
                 <ScalarProperty Name="Comment1" ColumnName="Comment" />
@@ -811,6 +816,7 @@
           <EntitySetMapping Name="Requests">
             <EntityTypeMapping TypeName="MyMasterPieceModel.Request">
               <MappingFragment StoreEntitySet="Requests">
+                <ScalarProperty Name="Accept" ColumnName="Accept" />
                 <ScalarProperty Name="Subscriper_Id" ColumnName="Subscriper_Id" />
                 <ScalarProperty Name="userId" ColumnName="userId" />
                 <ScalarProperty Name="Longtitude" ColumnName="Longtitude" />

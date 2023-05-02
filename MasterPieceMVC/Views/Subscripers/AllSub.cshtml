@@ -68,11 +68,29 @@
                         <p class="card-text">@item.Last_Name @item.First_Name</p>
                         <p style="font-size: 14px;" class="card-text">@item.Service.Service_Name</p>
                         <div style="text-align: right;">
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
+                            @{
+                                MasterPieceMVC.Models.MyMasterPieceEntities db = new MasterPieceMVC.Models.MyMasterPieceEntities();
+                                var count = db.Comments.Where(x => x.Subscriper_Id == item.Subscriper_Id).Select(x => x.Rate).ToList().Count();
+                                var sum = db.Comments.Where(x => x.Subscriper_Id == item.Subscriper_Id).Select(x => x.Rate).ToList().Sum();
+
+                                if (count == 0)
+                                {
+                                    count = 1;
+                                }
+                                var avr = sum / count;
+
+
+                            }
+                            @for (int i = 0; i < avr; i++)
+                            {
+                                <span class="fa fa-star checked"></span>
+                            }
+                            @for (int i = 0; i < (5 - avr); i++)
+                            {
+                                <span class="fa fa-star"></span>
+                            }
+
+
                         </div>
                     </div>
                 </div>
@@ -85,8 +103,8 @@
         <h5>التصنيفات</h5>
         <br />
         @{ 
-            MasterPieceMVC.Models.MyMasterPieceEntities db = new MasterPieceMVC.Models.MyMasterPieceEntities();
-            var service = db.Services.ToList();
+            MasterPieceMVC.Models.MyMasterPieceEntities db2 = new MasterPieceMVC.Models.MyMasterPieceEntities();
+            var service = db2.Services.ToList();
         }
         @foreach (var item in service)
         {
