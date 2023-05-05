@@ -16,9 +16,10 @@ namespace MasterPieceMVC.Controllers
         private MyMasterPieceEntities db = new MyMasterPieceEntities();
 
         // GET: Comments
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
-            var comments = db.Comments.Include(c => c.AspNetUser).Include(c => c.Subscriper);
+            var comments = db.Comments.Include(c => c.AspNetUser).Include(c => c.Subscriper).OrderByDescending(o => o.Comment_Id);
             return View(comments.ToList());
         }
 
@@ -45,10 +46,11 @@ namespace MasterPieceMVC.Controllers
             return RedirectToAction("SingleSub", "Subscripers", new { id = subId });
         }
 
-      
+
 
 
         // GET: Comments/Details/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -64,6 +66,7 @@ namespace MasterPieceMVC.Controllers
         }
 
         // GET: Comments/Create
+        [Authorize(Roles = "")]
         public ActionResult Create()
         {
             ViewBag.userId = new SelectList(db.AspNetUsers, "Id", "Email");
@@ -91,6 +94,7 @@ namespace MasterPieceMVC.Controllers
         }
 
         // GET: Comments/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -126,6 +130,7 @@ namespace MasterPieceMVC.Controllers
         }
 
         // GET: Comments/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)

@@ -61,7 +61,7 @@
     <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
     <Property Name="AccessFailedCount" Type="int" Nullable="false" />
     <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
-    <Property Name="Photo" Type="varchar" MaxLength="255" />
+    <Property Name="Photo" Type="nvarchar(max)" />
     <Property Name="Location" Type="nvarchar" MaxLength="255" />
   </EntityType>
   <EntityType Name="Comments">
@@ -113,7 +113,7 @@
     <Property Name="userId" Type="nvarchar" MaxLength="128" />
     <Property Name="First_Name" Type="nvarchar" MaxLength="255" />
     <Property Name="Last_Name" Type="nvarchar" MaxLength="255" />
-    <Property Name="Subscriper_Photo" Type="varchar" MaxLength="255" />
+    <Property Name="Subscriper_Photo" Type="nvarchar(max)" />
     <Property Name="Service_Id" Type="int" />
     <Property Name="Location" Type="varchar" MaxLength="255" />
     <Property Name="Service_Description" Type="nvarchar" MaxLength="255" />

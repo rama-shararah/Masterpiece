@@ -11,11 +11,23 @@
         background: #FFFFFF;
         border-color: var(--primary);
     }
+    .form-control {
+        width: 200px !important;
+        display: inline-block;
+    }
 </style>
 <div class="container-fluid pt-4 px-4">
+    <h4>Requests</h4>
+    @using (Html.BeginForm("Index", "Requests", FormMethod.Get))
+    {
+
+        @Html.TextBox("search", "Service Provider Email", new { @class = "form-control" })
+        <input id="Button1" type="submit" value="search" class="btn btn-primary" />
+    }
     @*<p>
-        @Html.ActionLink("Create New", "Create")
-    </p>*@
+            @Html.ActionLink("Create New", "Create")
+        </p>*@
+    <br />
     <div class="table-responsive">
 
         <table class="table text-start align-middle table-bordered table-hover mb-0">
@@ -23,12 +35,12 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Request_Date)
                 </th>
-          
+
                 <th>
-                   user Email
+                    user Email
                 </th>
                 <th>
-                    Service Provider
+                    Service Provider Email
                 </th>
                 <th></th>
             </tr>
@@ -39,20 +51,20 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Request_Date)
                     </td>
-          
+
                     <td>
                         @Html.DisplayFor(modelItem => item.AspNetUser.Email)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Subscriper.First_Name)
+                        @Html.DisplayFor(modelItem => item.Subscriper.AspNetUser.Email)
                     </td>
                     <td>
-                       
+
                         @Html.ActionLink("Details", "Details", new { id = item.Request_Id }) |
                         @Html.ActionLink("Delete", "Delete", new { id = item.Request_Id })
                     </td>
                 </tr>
             }
         </table>
-        </div>
     </div>
+</div>

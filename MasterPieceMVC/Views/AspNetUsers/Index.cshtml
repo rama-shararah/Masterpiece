@@ -11,55 +11,90 @@
         background: #FFFFFF;
         border-color: var(--primary);
     }
+
+    .form-control {
+        width: 200px !important;
+        display: inline-block;
+    }
+
+    .thumbnail {
+        top: -50px;
+        left: -35px;
+        display: block;
+        z-index: 999;
+        cursor: pointer;
+        -webkit-transition-property: all;
+        -webkit-transition-duration: 0.3s;
+        -webkit-transition-timing-function: ease;
+    }
+
+
+        .thumbnail:hover {
+            transform: scale(5);
+        }
 </style>
+
 <div class="container-fluid pt-4 px-4">
+
     <h4 class="mb-4">Users</h4>
+
+    @using (Html.BeginForm("Index", "AspNetUsers", FormMethod.Get))
+    {
+
+        @Html.RadioButton("searchby", "Email", true) <text>Email</text>
+        @Html.RadioButton("searchby", "Location", true) <text>Location</text>
+        @Html.TextBox("search", "", new { @class = "form-control" })
+        <input id="Button1" type="submit" value="search" class="btn btn-primary" />
+    }
     @*<p>
             @Html.ActionLink("Create New", "Create")
         </p>*@
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-
-            <th>
-                @Html.DisplayNameFor(model => model.PhoneNumber)
-            </th>
-
-            <th>
-                @Html.DisplayNameFor(model => model.Photo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Location)
-            </th>
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model)
-        {
+    <br />
+    <div class="table-responsive">
+        <table class="table text-start align-middle table-bordered table-hover mb-0">
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Email)
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.PhoneNumber)
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.PhoneNumber)
+                </th>
 
-                <td>
-                    <img src="~/pic/@item.Photo" width="50" alt="Alternate Text" />
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Location)
-                </td>
-                <td>
-                    @*@Html.ActionLink("Edit", "Edit", new { id=item.Id }) |*@
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.Photo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Location)
+                </th>
+                <th></th>
             </tr>
-        }
 
-    </table>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PhoneNumber)
+                    </td>
+
+                    <td>
+                        <img class="thumbnail" src="~/pic/@item.Photo" width="50" alt="Alternate Text" />
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Location)
+                    </td>
+                    <td>
+                        @*@Html.ActionLink("Edit", "Edit", new { id=item.Id }) |*@
+                        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
     </div>

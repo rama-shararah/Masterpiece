@@ -17,10 +17,25 @@ namespace MasterPieceMVC.Controllers
         private MyMasterPieceEntities db = new MyMasterPieceEntities();
 
         // GET: AspNetUsers
-        public ActionResult Index()
+        [Authorize(Roles = "Admin")]
+        public ActionResult Index(string searchBy, string search)
         {
+
+            if (searchBy == "Email")
+            {
+                return View(db.AspNetUsers.Where(u => u.AspNetUserRoles.Any(ur => ur.RoleId == "3")).Where(x => x.Email.Contains(search) || search == null).ToList());
+            }
+            else if (searchBy == "Location")
+            {
+                return View(db.AspNetUsers.Where(u => u.AspNetUserRoles.Any(ur => ur.RoleId == "3")).Where(x => x.Location.Contains(search) || search == null).ToList());
+            }
+
             return View(db.AspNetUsers.Where(u => u.AspNetUserRoles.Any(ur => ur.RoleId == "3")).ToList());
+
         }
+
+
+        [Authorize]
         public ActionResult UserProfile()
         {
             var user = User.Identity.GetUserId();
@@ -32,6 +47,8 @@ namespace MasterPieceMVC.Controllers
             return View(users);
         }
 
+
+        [Authorize]
         public ActionResult EditUserProfile()
         {
             var user = User.Identity.GetUserId();
@@ -75,11 +92,12 @@ namespace MasterPieceMVC.Controllers
 
 
 
-            return RedirectToAction("UserProfile", "AspNetUsers");//impoort
+            return RedirectToAction("UserProfile", "AspNetUsers");
         }
 
 
         // GET: AspNetUsers/Details/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Details(string id)
         {
             if (id == null)
@@ -94,6 +112,7 @@ namespace MasterPieceMVC.Controllers
             return View(aspNetUser);
         }
 
+        [Authorize(Roles = "")]
         // GET: AspNetUsers/Create
         public ActionResult Create()
         {
@@ -118,6 +137,7 @@ namespace MasterPieceMVC.Controllers
         }
 
         // GET: AspNetUsers/Edit/5
+        [Authorize(Roles = "")]
         public ActionResult Edit(string id)
         {
             if (id == null)
@@ -149,6 +169,7 @@ namespace MasterPieceMVC.Controllers
         }
 
         // GET: AspNetUsers/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(string id)
         {
             if (id == null)

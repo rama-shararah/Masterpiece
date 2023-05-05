@@ -5,12 +5,42 @@
     Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
 
+<style>
+    .form-control {
+        width: 200px !important;
+        display: inline-block;
+    }
 
+    .thumbnail {
+        top: -50px;
+        left: -35px;
+        display: block;
+        z-index: 999;
+        cursor: pointer;
+        -webkit-transition-property: all;
+        -webkit-transition-duration: 0.3s;
+        -webkit-transition-timing-function: ease;
+    }
+
+
+        .thumbnail:hover {
+            transform: scale(5);
+        }
+</style>
 <div class="container-fluid pt-4 px-4">
     <h4>Subscripers</h4>
+    @using (Html.BeginForm("Index", "Subscripers", FormMethod.Get))
+    {
+
+        @Html.RadioButton("searchby", "First_Name", true) <text>First Name</text>
+        @Html.RadioButton("searchby", "userId", true) <text>Location</text>
+        @Html.TextBox("search", "", new { @class = "form-control" })
+        <input id="Button1" type="submit" value="search" class="btn btn-primary" />
+    }
     @*<p>
             @Html.ActionLink("Create New", "Create")
         </p>*@
+    <br />
     <div class="table-responsive">
         <table class="table table-bordered table-responsive table-hover">
             <tr>
@@ -26,8 +56,8 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Location)
                 </th>
-  
-    
+
+
                 <th>
                     @Html.DisplayNameFor(model => model.AspNetUser.Email)
                 </th>
@@ -47,12 +77,12 @@
                         @Html.DisplayFor(modelItem => item.Last_Name)
                     </td>
                     <td>
-                        <img src="~/pic/@item.Subscriper_Photo" width="50" alt="Alternate Text" />
+                        <img class="thumbnail" src="~/pic/@item.Subscriper_Photo" width="50" alt="Alternate Text" />
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.AspNetUser.Location)
                     </td>
-                   
+
                     <td>
                         @Html.DisplayFor(modelItem => item.AspNetUser.Email)
                     </td>
@@ -68,5 +98,5 @@
             }
 
         </table>
-        </div>
+    </div>
 </div>

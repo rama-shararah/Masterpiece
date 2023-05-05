@@ -16,6 +16,7 @@ namespace MasterPieceMVC.Controllers
         private MyMasterPieceEntities db = new MyMasterPieceEntities();
 
         // GET: Services
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
             return View(db.Services.ToList());
@@ -24,11 +25,15 @@ namespace MasterPieceMVC.Controllers
         {
             return View(db.Services.ToList());
         }
+
+        [Authorize]
         public ActionResult Form()
         {
             return View(db.Services.ToList());
         }
 
+
+        [Authorize(Roles = "Admin")]
         // GET: Services/Details/5
         public ActionResult Details(int? id)
         {
@@ -44,6 +49,7 @@ namespace MasterPieceMVC.Controllers
             return View(service);
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: Services/Create
         public ActionResult Create()
         {
@@ -85,6 +91,7 @@ namespace MasterPieceMVC.Controllers
         }
 
         // GET: Services/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -134,6 +141,8 @@ namespace MasterPieceMVC.Controllers
             return View(service);
         }
 
+
+        [Authorize(Roles = "Admin")]
         // GET: Services/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -148,7 +157,7 @@ namespace MasterPieceMVC.Controllers
             }
             return View(service);
         }
-
+        
         // POST: Services/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

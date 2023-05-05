@@ -48,12 +48,12 @@ namespace MasterPieceMVC.Models
 
     public class LoginViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "حقل البريد الالكتروني مطلوب")]
         [Display(Name = "Email")]
         [EmailAddress]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "حقل كلمة السر مطلوب")]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
@@ -64,22 +64,23 @@ namespace MasterPieceMVC.Models
 
     public class RegisterViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "حقل البريد الالكتروني مطلوب")]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [Required(ErrorMessage = "حقل كلمة السر مطلوب")]
+        [StringLength(100, ErrorMessage = "يجب ألا يقل طول كلمة السر عن {2} من الأحرف.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Compare("Password", ErrorMessage = "كلمة المرور وكلمة المرور التأكيدية غير متطابقتين.")]
         public string ConfirmPassword { get; set; }
     }
+
 
     public class ResetPasswordViewModel
     {

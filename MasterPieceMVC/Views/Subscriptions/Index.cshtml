@@ -10,12 +10,24 @@
         background: #FFFFFF;
         border-color: var(--primary);
     }
+    .form-control {
+        width: 200px !important;
+        display: inline-block;
+    }
 </style>
 
 <div class="container-fluid pt-4 px-4">
+    <h4>Subscriptions</h4>
+    @using (Html.BeginForm("Index", "Subscriptions", FormMethod.Get))
+    {
+ 
+        @Html.TextBox("search", "Email", new { @class = "form-control" })
+        <input id="Button1" type="submit" value="search" class="btn btn-primary" />
+    }
     @*<p>
-        @Html.ActionLink("Create New", "Create")
-    </p>*@
+            @Html.ActionLink("Create New", "Create")
+        </p>*@
+    <br />
     <div class="table-responsive">
         <table class="table table-bordered table-responsive table-hover">
             <tr>
@@ -41,7 +53,7 @@
             @foreach (var item in Model)
             {
 
-                DateTime dateBeg =Convert.ToDateTime( item.Subscription_Beg);
+                DateTime dateBeg = Convert.ToDateTime(item.Subscription_Beg);
                 string dateBeg2 = dateBeg.ToString("dd/MM/yyyy");
 
 
@@ -74,4 +86,4 @@
 
         </table>
     </div>
-    </div>
+</div>

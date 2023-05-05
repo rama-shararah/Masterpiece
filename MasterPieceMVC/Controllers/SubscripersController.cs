@@ -20,15 +20,32 @@ namespace MasterPieceMVC.Controllers
 
         // GET: Subscripers
         [Authorize(Roles = "Admin")]
-        public ActionResult Index()
+        public ActionResult Index(string searchBy, string search)
         {
+            if (searchBy == "First_Name")
+            {
+                return View(db.Subscripers.Include(s => s.AspNetUser).Include(s => s.Service).Where(x => x.First_Name.Contains(search) || search == null).ToList());
+            }
+            else if (searchBy == "userId")
+            {
+                return View(db.Subscripers.Include(s => s.AspNetUser).Include(s => s.Service).Where(x => x.AspNetUser.Location.Contains(search) || search == null).ToList());
+            }
+
             var subscripers = db.Subscripers.Include(s => s.AspNetUser).Include(s => s.Service);
             return View(subscripers.ToList());
         }
 
-        [Authorize(Roles = "ServiceProvider")]
+        [Authorize]
+        public ActionResult Form()
+        {
+            return View();
+        }
+
+
+        [Authorize]
         public ActionResult SubProfile()
         {
+            Session.Remove("profile");
             var user = User.Identity.GetUserId();
             var subscriper = db.Subscripers.FirstOrDefault(x => x.userId == user);
             if (subscriper == null)
@@ -39,7 +56,7 @@ namespace MasterPieceMVC.Controllers
         }
 
 
-        [Authorize(Roles = "ServiceProvider")]
+        [Authorize]
         public ActionResult EditSubProfile()
         {
             var user = User.Identity.GetUserId();
@@ -123,9 +140,9 @@ namespace MasterPieceMVC.Controllers
             {
                 if (pic != null)
                 {
-                    string pathpic = Path.GetFileName(pic.FileName);
-                    pic.SaveAs(Path.Combine(Server.MapPath("~/pic/"), pic.FileName));
-              
+                       
+                            string pathpic = Path.GetFileName(pic.FileName);
+                            pic.SaveAs(Path.Combine(Server.MapPath("~/pic/"), pic.FileName));
                 }
 
                 Subscriper sub = new Subscriper
@@ -169,7 +186,8 @@ namespace MasterPieceMVC.Controllers
             {
                 Response.Write(e.Message);
             }
-            return RedirectToAction("SubProfile", "Subscripers");
+            Session["profile"] = "done";
+            return RedirectToAction("Login", "Account");
         }
            
 
@@ -205,7 +223,7 @@ namespace MasterPieceMVC.Controllers
         }
 
         // GET: Subscripers/Create
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "")]
         public ActionResult Create()
         {
             ViewBag.userId = new SelectList(db.AspNetUsers, "Id", "Email");
@@ -233,7 +251,7 @@ namespace MasterPieceMVC.Controllers
         }
 
         // GET: Subscripers/Edit/5
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "")]
         public ActionResult Edit(int? id)
         {
             if (id == null)

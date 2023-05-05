@@ -10,32 +10,35 @@ using MasterPieceMVC.Models;
 
 namespace MasterPieceMVC.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    
     public class SubscriptionsController : Controller
     {
         private MyMasterPieceEntities db = new MyMasterPieceEntities();
 
         // GET: Subscriptions
 
-        
+        [Authorize(Roles = "Admin")]
         public ActionResult Dashboard()
         {
 
             return View();
         }
 
-        public ActionResult Index()
+        [Authorize(Roles = "Admin")]
+        public ActionResult Index(string search)
         {
-            var subscriptions = db.Subscriptions.Include(s => s.AspNetUser);
-            return View(subscriptions.ToList());
+
+             return View(db.Subscriptions.Include(s => s.AspNetUser).OrderByDescending(o => o.Subscription_Beg).Where(x => x.AspNetUser.Email.Contains(search) || search == null).ToList());
+     
+   
         }
 
- 
 
 
 
 
 
+        [Authorize(Roles = "Admin")]
         // GET: Subscriptions/Details/5
         public ActionResult Details(int? id)
         {
@@ -51,6 +54,7 @@ namespace MasterPieceMVC.Controllers
             return View(subscription);
         }
 
+        [Authorize(Roles = "")]
         // GET: Subscriptions/Create
         public ActionResult Create()
         {
@@ -76,6 +80,7 @@ namespace MasterPieceMVC.Controllers
             return View(subscription);
         }
 
+        [Authorize(Roles = "")]
         // GET: Subscriptions/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -109,6 +114,8 @@ namespace MasterPieceMVC.Controllers
             return View(subscription);
         }
 
+
+        [Authorize(Roles = "Admin")]
         // GET: Subscriptions/Delete/5
         public ActionResult Delete(int? id)
         {

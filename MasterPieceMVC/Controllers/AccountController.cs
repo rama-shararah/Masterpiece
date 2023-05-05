@@ -129,6 +129,10 @@ namespace MasterPieceMVC.Controllers
                     {
                         return RedirectToAction("IndexUser", "Prices");
                     }
+                    else if(roleId.RoleId == "2" && Session["profile"] != null)
+                    {
+                        return RedirectToAction("SubProfile", "Subscripers");
+                    }
                     else if ((roleId.RoleId == "3" || roleId.RoleId == "2") && Session["id"] != null)
                     {
 
@@ -146,7 +150,7 @@ namespace MasterPieceMVC.Controllers
                     }
                     else if (roleId.RoleId == "1")
                     {
-                        return RedirectToAction("Index", "Services");
+                        return RedirectToAction("Dashboard", "Subscriptions");
                     }
                     return Redirect("~/Services/HomePage");
                 case SignInStatus.LockedOut:
@@ -155,7 +159,7 @@ namespace MasterPieceMVC.Controllers
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
+                    ModelState.AddModelError("", "محاولة تسجيل الدخول غير صحيحة");
                     return View(model);
             }
         }

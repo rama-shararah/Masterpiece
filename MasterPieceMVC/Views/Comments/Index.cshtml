@@ -11,11 +11,15 @@
         background: #FFFFFF;
         border-color: var(--primary);
     }
+    .form-control {
+        width: 200px !important;
+        display: inline-block;
+    }
 </style>
 
 <div class="container-fluid pt-4 px-4">
     <h4 class="mb-0">Comments</h4>
-    <br />
+   <br />
     @*<p>
             @Html.ActionLink("Create New", "Create")
         </p>*@
@@ -35,7 +39,7 @@
                 <th>
                     @Html.DisplayNameFor(model => model.AspNetUser.Email)
                 </th>
-             
+
                 <th></th>
             </tr>
 
@@ -56,14 +60,14 @@
                             <text>true</text>}
                         else
                         { <text>false</text>}
-</td>
+                    </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.AspNetUser.Email)
                     </td>
-                  
+
                     <td>
                         @Html.ActionLink("Edit", "Edit", new { id = item.Comment_Id }) |
-                        
+
                         @Html.ActionLink("Delete", "Delete", new { id = item.Comment_Id })
                     </td>
                 </tr>
@@ -71,4 +75,4 @@
 
         </table>
     </div>
-    </div>
+</div>

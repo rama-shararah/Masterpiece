@@ -18,6 +18,7 @@ namespace MasterPieceMVC.Controllers
         private MyMasterPieceEntities db = new MyMasterPieceEntities();
 
         // GET: Prices
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
             return View(db.Prices.ToList());
@@ -82,7 +83,7 @@ namespace MasterPieceMVC.Controllers
 
            
            
-            return RedirectToAction("Form", "Services");
+            return RedirectToAction("Form", "Subscripers");
             }
 
         }
@@ -94,6 +95,7 @@ namespace MasterPieceMVC.Controllers
         }
 
         // GET: Prices/Details/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -109,6 +111,7 @@ namespace MasterPieceMVC.Controllers
         }
 
         // GET: Prices/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             return View();
@@ -132,6 +135,7 @@ namespace MasterPieceMVC.Controllers
         }
 
         // GET: Prices/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -163,6 +167,7 @@ namespace MasterPieceMVC.Controllers
         }
 
         // GET: Prices/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)

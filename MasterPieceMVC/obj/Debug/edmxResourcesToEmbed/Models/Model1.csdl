@@ -125,7 +125,7 @@
     <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
     <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
     <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
-    <Property Name="Photo" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Photo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Location" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="AspNetUserClaims" Relationship="MyMasterPieceModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserClaim" />
     <NavigationProperty Name="AspNetUserLogins" Relationship="MyMasterPieceModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
@@ -145,9 +145,9 @@
     <Property Name="Comment1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
     <Property Name="Comment_Date" Type="DateTime" Precision="3" />
     <Property Name="Accept" Type="Boolean" />
+    <Property Name="Rate" Type="Int32" />
     <NavigationProperty Name="AspNetUser" Relationship="MyMasterPieceModel.FK__Comments__userId__534D60F1" FromRole="Comment" ToRole="AspNetUser" />
     <NavigationProperty Name="Subscriper" Relationship="MyMasterPieceModel.FK__Comments__Subscr__5441852A" FromRole="Comment" ToRole="Subscriper" />
-    <Property Name="Rate" Type="Int32" />
   </EntityType>
   <EntityType Name="Price">
     <Key>
@@ -167,9 +167,9 @@
     <Property Name="Longtitude" Type="Decimal" Precision="18" Scale="6" />
     <Property Name="userId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
     <Property Name="Subscriper_Id" Type="Int32" />
+    <Property Name="Accept" Type="Boolean" />
     <NavigationProperty Name="AspNetUser" Relationship="MyMasterPieceModel.FK_Requests_AspNetUsers" FromRole="Request" ToRole="AspNetUser" />
     <NavigationProperty Name="Subscriper" Relationship="MyMasterPieceModel.FK__Requests__Subscr__656C112C" FromRole="Request" ToRole="Subscriper" />
-    <Property Name="Accept" Type="Boolean" />
   </EntityType>
   <EntityType Name="Service">
     <Key>
@@ -189,7 +189,7 @@
     <Property Name="userId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
     <Property Name="First_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
     <Property Name="Last_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="Subscriper_Photo" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Subscriper_Photo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Service_Id" Type="Int32" />
     <Property Name="Location" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
     <Property Name="Service_Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />

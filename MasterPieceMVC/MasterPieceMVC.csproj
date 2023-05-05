@@ -175,6 +175,7 @@
     <Compile Include="Controllers\AspNetUsersController.cs" />
     <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PricesController.cs" />
@@ -294,6 +295,7 @@
     <Content Include="dashmin-1.0.0\test.html" />
     <Content Include="dashmin-1.0.0\typography.html" />
     <Content Include="dashmin-1.0.0\widget.html" />
+    <Content Include="ErrorPage.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -556,6 +558,8 @@
     <Content Include="Views\Contact\Index.cshtml" />
     <Content Include="Views\About\Index.cshtml" />
     <Content Include="Views\Requests\EditSubRequest.cshtml" />
+    <Content Include="Views\Subscripers\Form.cshtml" />
+    <Content Include="Views\Error\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

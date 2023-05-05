@@ -17,12 +17,14 @@ namespace MasterPieceMVC.Controllers
         private MyMasterPieceEntities db = new MyMasterPieceEntities();
 
         // GET: Requests
-        public ActionResult Index()
+        [Authorize(Roles = "Admin")]
+        public ActionResult Index(string search)
         {
-            var requests = db.Requests.Include(r => r.AspNetUser).Include(r => r.Subscriper);
-            return View(requests.ToList());
+            return View(db.Requests.Include(r => r.AspNetUser).Include(r => r.Subscriper).OrderByDescending(o => o.Request_Date).Where(x => x.Subscriper.AspNetUser.Email.Contains(search) || search == null).ToList());
+           
         }
 
+        [Authorize(Roles = "ServiceProvider")]
         public ActionResult Request()
         {
 
@@ -31,7 +33,7 @@ namespace MasterPieceMVC.Controllers
             return View(requests.ToList());
         }
 
-        
+        [Authorize(Roles = "ServiceProvider")]
         public ActionResult EditSubRequest(int? id)
         {
             if (id == null)
@@ -82,7 +84,7 @@ namespace MasterPieceMVC.Controllers
         }
 
 
-
+        [Authorize(Roles = "ServiceProvider")]
         public ActionResult Map(int? id)
         {
 
@@ -116,7 +118,7 @@ namespace MasterPieceMVC.Controllers
 
 
 
-
+        [Authorize(Roles = "Admin")]
         // GET: Requests/Details/5
         public ActionResult Details(int? id)
         {
@@ -132,6 +134,7 @@ namespace MasterPieceMVC.Controllers
             return View(request);
         }
 
+        [Authorize(Roles = "")]
         // GET: Requests/Create
         public ActionResult Create()
         {
@@ -159,6 +162,8 @@ namespace MasterPieceMVC.Controllers
             return View(request);
         }
 
+
+        [Authorize(Roles = "")]
         // GET: Requests/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -195,6 +200,7 @@ namespace MasterPieceMVC.Controllers
         }
 
         // GET: Requests/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
