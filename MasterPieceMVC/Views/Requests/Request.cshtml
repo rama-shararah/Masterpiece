@@ -32,6 +32,19 @@
     body {
         background-color: #F4F4F4;
     }
+    @@media only screen and (min-device-width: 0px) and (max-device-width: 480px) {
+        .line {
+            white-space: nowrap;
+            overflow: auto;
+            text-overflow: clip;
+            overflow-y: scroll;
+           
+        }
+
+        .pad {
+            padding: 10px !important;
+        }
+    }
 </style>
 
 
@@ -54,10 +67,10 @@ else {
 
 
 <div class="d-flex flex-start mb-4">
-                            <div class="card w-100">
+                            <div class="card w-100 line">
                                 <div class="card-body p-4">
                                     <div class="con">
-                                        <div class="col-md-1" style="text-align: right;">
+                                        <div class="col-md-1 pad" style="text-align: right;">
                                             @if (item.Accept == null)
                                             {
                                                 <a href="/Requests/EditSubRequest/@item.Request_Id">
@@ -74,20 +87,20 @@ else {
                                             }
 
                                         </div>
-                                        <div class="col-md-2" style="text-align: right;">
+                                        <div class="col-md-2 pad" style="text-align: right;">
                                             <a href="/Requests/Map/@item.Request_Id">
                                                 <h5>الموقع</h5>
                                             </a>
 
                                         </div>
-                                        <div class="col-md-3" style="text-align: right;">
+                                        <div class="col-md-3 pad" style="text-align: right;">
                                             <h5>رقم الهاتف:@item.AspNetUser.PhoneNumber</h5>
 
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-3 pad">
                                             <h5>@item.AspNetUser.Location</h5>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-3 pad">
                                             <h5>
                                                 @item.Request_Date
                                             @if (item.Accept == null)

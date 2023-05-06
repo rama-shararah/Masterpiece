@@ -38,6 +38,9 @@
         .checked {
             color: orange;
         }
+    h2 {
+        text-align: center;
+    }
 
         @@media (min-width: 1200px) {
             .col-xl-7 {
@@ -58,6 +61,30 @@
             border: 1px solid #E6E6E6;
         }
 
+    @@media only screen and (min-device-width: 0px) and (max-device-width: 480px) {
+        #row {
+           display:flex;
+           flex-direction:column-reverse;
+        }
+
+        .rev {
+            display: flex;
+            flex-direction: column-reverse;
+        }
+
+        .line {
+            white-space: nowrap;
+            overflow: auto;
+            text-overflow: clip;
+            overflow-y: scroll;
+        }
+
+        .pad {
+            padding: 10px !important;
+        }
+
+    }
+
 </style>
 
 <div class="container">
@@ -71,7 +98,7 @@
                     </div>
                 </div>
 
-                <div class="row mt-3">
+                <div class="row mt-3 rev">
                     <div class="col-md-8">
                         @Model.AspNetUser.Location
 
@@ -81,7 +108,7 @@
                     </div>
                 </div>
                 <hr />
-                <div class="row mt-3">
+                <div class="row mt-3 rev">
                     <div class="col-md-8">
                         @Model.AspNetUser.PhoneNumber
                     </div>
@@ -90,7 +117,7 @@
                     </div>
                 </div>
                 <hr />
-                <div class="row mt-3">
+                <div class="row mt-3 rev">
                     <div class="col-md-8">
                         @Model.AverageHourlyRate JD
                     </div>
@@ -99,7 +126,7 @@
                     </div>
                 </div>
                 <hr />
-                <div class="row mt-3">
+                <div class="row mt-3 rev">
                     <div class="col-md-8">
                         @Model.Beg_Time -  @Model.End_Time
                     </div>
@@ -111,9 +138,9 @@
                 @{
                     var id = Model.Subscriper_Id;
                     MasterPieceMVC.Models.MyMasterPieceEntities db = new MasterPieceMVC.Models.MyMasterPieceEntities();
-                    var numOfClient= db.Requests.Where(x => x.Subscriper_Id == id).Count();
+                    var numOfClient = db.Requests.Where(x => x.Subscriper_Id == id).Count();
                 }
-                <div class="row mt-3">
+                <div class="row mt-3 rev">
                     <div class="col-md-8">
                         @numOfClient
 
@@ -123,7 +150,7 @@
                     </div>
                 </div>
                 <hr />
-                <div class="row mt-3">
+                <div class="row mt-3 rev">
                     <div class="col-md-8">
                         @Model.Service.Service_Name
                     </div>
@@ -132,7 +159,7 @@
                     </div>
                 </div>
                 <hr />
-                <div class="row mt-3">
+                <div class="row mt-3 rev">
                     <div class="col-md-8">
                         @Model.Service_Description
 
@@ -141,7 +168,7 @@
                         وصف الخدمة
                     </div>
                 </div>
-               
+
                 <div class="mt-5 text-right">
                 </div>
             </div>
@@ -151,31 +178,31 @@
 
 
                 <img id="img" class="rounded-circle mt-5" src="~/pic/@Model.Subscriper_Photo" width="310" height="300"><span class="font-weight-bold">@Model.Last_Name @Model.First_Name </span><span class="text-black-50">@Model.AspNetUser.Email</span>
-               <div style="text-align: right;">
-                            @{
-                                
-                                var count = db.Comments.Where(x => x.Subscriper_Id == Model.Subscriper_Id).Select(x => x.Rate).ToList().Count();
-                                var sum = db.Comments.Where(x => x.Subscriper_Id == Model.Subscriper_Id).Select(x => x.Rate).ToList().Sum();
-                                
-                                if (count == 0)
-                                {
-                                    count = 1;
-                                }
-                                var avr = sum / count;
+                <div style="text-align: right;">
+                    @{
+
+                        var count = db.Comments.Where(x => x.Subscriper_Id == Model.Subscriper_Id).Select(x => x.Rate).ToList().Count();
+                        var sum = db.Comments.Where(x => x.Subscriper_Id == Model.Subscriper_Id).Select(x => x.Rate).ToList().Sum();
+
+                        if (count == 0)
+                        {
+                            count = 1;
+                        }
+                        var avr = sum / count;
 
 
-                            }
-                            @for (int i = 0; i < avr; i++)
-                            {
-                                <span class="fa fa-star checked"></span>
-                            }
-                            @for (int i = 0; i < (5 - avr); i++)
-                            {
-                                <span class="fa fa-star"></span>
-                            }
+                    }
+                    @for (int i = 0; i < avr; i++)
+                    {
+                        <span class="fa fa-star checked"></span>
+                    }
+                    @for (int i = 0; i < (5 - avr); i++)
+                    {
+                        <span class="fa fa-star"></span>
+                    }
 
 
-                        </div>
+                </div>
                 <br />
                 <select id="myDropdown" style="width: 25%;" class="form-select">
                     @if (Model.Status == true)
@@ -192,7 +219,72 @@
             </div>
         </div>
     </div>
+
+    @{
+        var user = User.Identity.Name;
+
+        var request = db.Requests.Where(x => x.AspNetUser.Email == user).OrderByDescending(o => o.Request_Date);
+
+    }
+    <div class="container my-5 py-5 text-dark">
+        <h2>سجل الطلبات</h2>
+        <br />
+        <div class="row d-flex justify-content-center">
+            @{ if (request == null || !request.Any())
+                {
+                    <p style="text-align:center">لا يوجد طلبات </p>
+                }
+                else
+                {
+                    foreach (var item in request)
+                    {
+                        <div class="d-flex flex-start mb-4">
+
+                            <div class="card w-100 line">
+                                <div class="card-body p-4">
+                                    <div class="con">
+
+                                        <div class="col-md-2 pad" style="text-align: right;">
+
+                                            @if (item.Accept == true)
+                                            {<h5 style="color:green;">مقبول</h5>}
+                                            @if (item.Accept == false)
+                                            {<h5 style="color:red">مرفوض</h5>}
+                                            @if (item.Accept == null)
+                                            {<h5>....قيد القبول</h5>}
+
+
+                                        </div>
+                                        <div class="col-md-4 pad" style="text-align: right;">
+                                            <h5>رقم الهاتف: @item.Subscriper.AspNetUser.PhoneNumber</h5>
+
+                                        </div>
+                                        <div class="col-md-3 pad">
+                                            <h5>@item.Subscriper.Last_Name @item.Subscriper.First_Name</h5>
+                                        </div>
+                                        <div class="col-md-3 pad">
+                                            <h5>@item.Request_Date</h5>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    }
+                    }
+                }
+
+                </div>
+    </div>
+
+
+
+
 </div>
+
+
 
 <script>
     $("#myDropdown").change(function () {

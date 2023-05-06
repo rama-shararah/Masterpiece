@@ -88,7 +88,7 @@ namespace MasterPieceMVC.Controllers
             var id = db.AspNetUsers.FirstOrDefault(x => x.Email == model.Email).Id;
             if (roleId.RoleId == "2") {
             var subscriptionEnd = db.Subscriptions.FirstOrDefault(x => x.userId == id).Subscription_End;
-                if (currentDate == subscriptionEnd && roleId.RoleId == "2")
+                if (currentDate >= subscriptionEnd && roleId.RoleId == "2")
                 {
                     var shown = db.Subscripers.SingleOrDefault(x => x.userId == id);
                     shown.Shown = false;

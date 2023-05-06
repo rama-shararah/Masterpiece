@@ -31,7 +31,7 @@ namespace MasterPieceMVC.Controllers
                 return View(db.Subscripers.Include(s => s.AspNetUser).Include(s => s.Service).Where(x => x.AspNetUser.Location.Contains(search) || search == null).ToList());
             }
 
-            var subscripers = db.Subscripers.Include(s => s.AspNetUser).Include(s => s.Service);
+            var subscripers = db.Subscripers.Include(s => s.AspNetUser).Include(s => s.Service).OrderByDescending(x=>x.Subscriper_Id);
             return View(subscripers.ToList());
         }
 
@@ -70,7 +70,7 @@ namespace MasterPieceMVC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditSubProfile([Bind(Include = "Subscriper_Id,userId,First_Name,Last_Name,Subscriper_Photo,Service_Id,Location,Service_Description,Beg_Time,End_Time,Status,Shown,AverageHourlyRate")] Subscriper subscriper, HttpPostedFileBase pic, string PhoneNumber, string location)
+        public ActionResult EditSubProfile([Bind(Include = "Subscriper_Id,userId,First_Name,Last_Name,Subscriper_Photo,Service_Id,Location,Service_Description,Beg_Time,End_Time,Status,Shown,AverageHourlyRate")] Subscriper subscriper, HttpPostedFileBase pic, string PhoneNumber, string Location)
         {
             
                 var user = User.Identity.GetUserId();
@@ -102,7 +102,7 @@ namespace MasterPieceMVC.Controllers
                     sub.Beg_Time = subscriper.Beg_Time;
                     sub.End_Time = subscriper.End_Time;
                     sub.AverageHourlyRate = subscriper.AverageHourlyRate;
-                    updateUser.Location = location;
+                    updateUser.Location = Location;
                     updateUser.PhoneNumber = PhoneNumber;
 
 
@@ -307,10 +307,18 @@ namespace MasterPieceMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            try { 
             Subscriper subscriper = db.Subscripers.Find(id);
             db.Subscripers.Remove(subscriper);
             db.SaveChanges();
             return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                // handle the error here
+                return RedirectToAction("Index", "Error");
+            }
+
         }
 
         protected override void Dispose(bool disposing)

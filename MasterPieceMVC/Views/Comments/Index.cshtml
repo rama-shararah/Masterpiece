@@ -39,6 +39,9 @@
                 <th>
                     @Html.DisplayNameFor(model => model.AspNetUser.Email)
                 </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Rate)
+                </th>
 
                 <th></th>
             </tr>
@@ -57,12 +60,15 @@
                         @if ((item.Accept) == true)
                         {
 
-                            <text>true</text>}
+                            <text>True</text>}
                         else
                         { <text>false</text>}
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.AspNetUser.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Rate) stars
                     </td>
 
                     <td>

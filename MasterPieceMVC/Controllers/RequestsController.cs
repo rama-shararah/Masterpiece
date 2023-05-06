@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
@@ -94,26 +95,49 @@ namespace MasterPieceMVC.Controllers
         [HttpPost]
         public ActionResult SaveLocation([Bind(Include = "Request_Id,Request_Date,Lantitude,Longtitude,userId,Subscriper_Id,Accept")] Request request, double lat, double lng)
         {
-            DateTime currentDate = DateTime.Now;
-            string userId = User.Identity.GetUserId();
-
-            decimal latt = Convert.ToDecimal(lat);
-            decimal lngg = Convert.ToDecimal(lng);
-            // TODO: Save location to database or perform other processing
-            Request geo = new Request
+         
+            
+            try
             {
-                Lantitude = latt,
-                Longtitude = lngg,
-                Request_Date = currentDate,
-                userId = userId,
-                Subscriper_Id = request.Subscriper_Id,
+                DateTime currentDate = DateTime.Now;
+                string userId = User.Identity.GetUserId();
 
-            };
-            var sub = db.Subscripers.FirstOrDefault(x => x.Subscriper_Id == request.Subscriper_Id);
-            sub.Status = false;
-            db.Requests.Add(geo);
-            db.SaveChanges();
-            return RedirectToAction("HomePage", "Services"); 
+                decimal latt = Convert.ToDecimal(lat);
+                decimal lngg = Convert.ToDecimal(lng);
+                // TODO: Save location to database or perform other processing
+                Request geo = new Request
+                {
+                    Lantitude = latt,
+                    Longtitude = lngg,
+                    Request_Date = currentDate,
+                    userId = userId,
+                    Subscriper_Id = request.Subscriper_Id,
+
+                };
+                var sub = db.Subscripers.FirstOrDefault(x => x.Subscriper_Id == request.Subscriper_Id);
+                sub.Status = false;
+                db.Requests.Add(geo);
+                db.SaveChanges();
+            }
+            catch (DbEntityValidationException ex)
+            {
+                // Loop through the validation errors and display them
+                foreach (var validationErrors in ex.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        Console.WriteLine("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage);
+                    }
+                }
+            }
+            if (User.IsInRole("User")) { 
+            return RedirectToAction("UserProfile", "AspNetUsers");
+            }
+            if (User.IsInRole("User"))
+            {
+                return RedirectToAction("SubProfile", "Subscripers");
+            }
+            return View();
         }
 
 
@@ -220,10 +244,17 @@ namespace MasterPieceMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            try { 
             Request request = db.Requests.Find(id);
             db.Requests.Remove(request);
             db.SaveChanges();
             return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                // handle the error here
+                return RedirectToAction("Index", "Error");
+            }
         }
 
         protected override void Dispose(bool disposing)

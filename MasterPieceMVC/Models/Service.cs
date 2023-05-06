@@ -11,7 +11,8 @@ namespace MasterPieceMVC.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Service
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,8 +22,11 @@ namespace MasterPieceMVC.Models
         }
     
         public int Service_Id { get; set; }
+        [Display(Name = "Service Name")]
         public string Service_Name { get; set; }
+        [Display(Name = "Service Photo")]
         public string Service_Photo { get; set; }
+        [Display(Name = "Slider Photo")]
         public string Slider_Photo { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

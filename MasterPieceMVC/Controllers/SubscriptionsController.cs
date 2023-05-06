@@ -136,10 +136,18 @@ namespace MasterPieceMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            try { 
             Subscription subscription = db.Subscriptions.Find(id);
             db.Subscriptions.Remove(subscription);
             db.SaveChanges();
             return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                // handle the error here
+                return RedirectToAction("Index", "Error");
+            }
+
         }
 
         protected override void Dispose(bool disposing)

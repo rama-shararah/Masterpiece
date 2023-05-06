@@ -48,6 +48,14 @@
         width: 70%;
     }
 
+    #img {
+        background-color: rgb(0 0 0 / 5%);
+        height: 10rem;
+        width: 85%;
+        margin-left: 4rem;
+        padding-top: 2rem
+    }
+
     .btn-file {
         position: relative;
         overflow: hidden;
@@ -72,16 +80,47 @@
             display: block;
         }
 
+    #sub {
+        background-color: #45962C;
+        font-size: 18px;
+        width: 20%;
+    }
+
     @@media only screen and (min-device-width: 0px) and (max-device-width: 480px) {
         .col-md-8 {
             width: 100%;
         }
+
+        #img {
+         
+            margin-left: 1.5rem;
+            
+        }
+
+        .btn-file {
+         
+            width: 60%;
+            
+        }
+
+        #sub {
+          
+            width: 50%;
+        }
+
+        
     }
 
     @@media only screen and (min-device-width: 481px) and (max-device-width: 768px) {
 
         .col-md-8 {
             width: 100%;
+        }
+        #img {
+            margin-left: 3rem;
+        }
+        .btn-file {
+            width: 30%;
         }
     }
 </style>
@@ -106,7 +145,7 @@
                             {
                                 @Html.AntiForgeryToken()
                                 <div style="display: inline-block; width: 46%" class="form-outline form-white mb-4">
-                                    <input type="text" name="First_Name" id="name1" placeholder="الاسم الثاني" class="form-control form-control-lg" required />
+                                    <input type="text" name="First_Name" id="name1" placeholder="الاسم الثاني" class="form-control form-control-lg"  required />
                                 </div>
                                 @Html.ValidationMessageFor(model => model.First_Name, "", new { @class = "text-danger" })
                                 <div style="display: inline-block; width: 46%" class="form-outline form-white mb-4">
@@ -143,7 +182,7 @@
                                 </div>
                                 @Html.ValidationMessageFor(model => model.Service_Description, "", new { @class = "text-danger" })
                                 <br />
-                                <div style="background-color: rgb(0 0 0 / 5%); height:10rem; width:85%; margin-left:4rem; padding-top:2rem">
+                                <div id="img">
 
                                     @try
                                     {
@@ -164,7 +203,7 @@
                                 </div>
                                 <br /><br />
                                 <div class="form-outline form-white mb-6">
-                                    <input type="submit" class="btn btn-success" value="اشتراك" style="background-color: #45962C; font-size: 18px; width: 20%;">
+                                    <input type="submit" class="btn btn-success" value="اشتراك" id="sub">
                                 </div>
                             }
                         </div>

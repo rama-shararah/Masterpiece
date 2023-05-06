@@ -60,6 +60,31 @@
     h2{
         text-align:center;
     }
+
+    @@media only screen and (min-device-width: 0px) and (max-device-width: 480px) {
+
+        #row {
+       display:flex;
+       flex-direction:column-reverse;
+        }
+
+        .rev {
+            display: flex;
+            flex-direction: column-reverse;
+        }
+
+        .line {
+            white-space: nowrap;
+            overflow: auto;
+            text-overflow: clip;
+            overflow-y:scroll;
+        }
+        .pad {
+            padding: 10px !important;
+        }
+
+
+    }
 </style>
 
 <div class="container">
@@ -72,7 +97,7 @@
                         <a href="/AspNetUsers/EditUserProfile" style="color: black;"><i class="fa-solid fa-pen-to-square"></i></a>
                     </div>
                 </div>
-                <div class="row mt-3">
+                <div class="row mt-3 rev">
                     <div class="col-md-8">
                         @Model.Email
 
@@ -82,7 +107,7 @@
                     </div>
                 </div>
                 <hr />
-                <div class="row mt-3">
+                <div class="row mt-3 rev">
                     <div class="col-md-8">
                         @Model.Location
 
@@ -92,7 +117,7 @@
                     </div>
                 </div>
                 <hr />
-                <div class="row mt-3">
+                <div class="row mt-3 rev">
                     <div class="col-md-8">
                         @Model.PhoneNumber
                     </div>
@@ -106,7 +131,7 @@
                     MasterPieceMVC.Models.MyMasterPieceEntities db = new MasterPieceMVC.Models.MyMasterPieceEntities();
                     var numOforders = db.Requests.Where(x => x.AspNetUser.Email == user).Count();
                 }
-                <div class="row mt-3">
+                <div class="row mt-3 rev">
                     <div class="col-md-8">
                         @numOforders
 
@@ -134,54 +159,61 @@
 
 
         var request = db.Requests.Where(x => x.AspNetUser.Email == user).OrderByDescending(o => o.Request_Date);
-        
+
     }
     
 <div class="container my-5 py-5 text-dark">
     <h2>سجل الطلبات</h2>
     <br />
     <div class="row d-flex justify-content-center">
-        @foreach (var item in request)
-        {
-            <div class="d-flex flex-start mb-4">
+        @{ if (request == null || !request.Any())
+            {
+                <p style="text-align:center">لا يوجد طلبات </p>
+            }
+            else
+            {
+                foreach (var item in request)
+                {
+                    <div class="d-flex flex-start mb-4">
 
-                <div class="card w-100">
-                    <div class="card-body p-4">
-                        <div class="con">
+                        <div class="card w-100 line">
+                            <div class="card-body p-4">
+                                <div class="con">
 
-                            <div class="col-md-2" style="text-align: right;">
+                                    <div class="col-md-2 pad" style="text-align: right;">
 
-                                @if (item.Accept == true)
-                                {<h5 style="color:green;">مقبول</h5>}
-                                @if (item.Accept == false)
-                                {<h5 style="color:red">مرفوض</h5>}
-                                @if (item.Accept == null)
-                                {<h5>....قيد القبول</h5>}
+                                        @if (item.Accept == true)
+                                        {<h5 style="color:green;">مقبول</h5>}
+                                        @if (item.Accept == false)
+                                        {<h5 style="color:red">مرفوض</h5>}
+                                        @if (item.Accept == null)
+                                        {<h5>....قيد القبول</h5>}
 
 
+                                    </div>
+                                    <div class="col-md-4 pad" style="text-align: right;">
+                                        <h5>رقم الهاتف: @item.Subscriper.AspNetUser.PhoneNumber</h5>
+
+                                    </div>
+                                    <div class="col-md-3 pad">
+                                        <h5>@item.Subscriper.Last_Name @item.Subscriper.First_Name</h5>
+                                    </div>
+                                    <div class="col-md-3 pad">
+                                        <h5>@item.Request_Date</h5>
+
+                                    </div>
+
+                                </div>
                             </div>
-                            <div class="col-md-4" style="text-align: right;">
-                                <h5>رقم الهاتف: @item.Subscriper.AspNetUser.PhoneNumber</h5>
-
-                            </div>
-                            <div class="col-md-3">
-                                <h5>@item.Subscriper.Last_Name @item.Subscriper.First_Name</h5>
-                            </div>
-                            <div class="col-md-3">
-                                <h5>@item.Request_Date</h5>
-
-                            </div>
-
                         </div>
+
                     </div>
-                </div>
+
+                }
+                }
+            }
 
             </div>
-
-        }
-
-
-    </div>
 </div>
     </div>
 

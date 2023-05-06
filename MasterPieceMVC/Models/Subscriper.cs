@@ -11,7 +11,8 @@ namespace MasterPieceMVC.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Subscriper
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -23,16 +24,29 @@ namespace MasterPieceMVC.Models
     
         public int Subscriper_Id { get; set; }
         public string userId { get; set; }
+        [Display(Name = "First Name")]
+        [Required]
         public string First_Name { get; set; }
+        [Display(Name = "Last Name")]
+        [Required]
         public string Last_Name { get; set; }
+        [Display(Name = "Photo")]
         public string Subscriper_Photo { get; set; }
         public Nullable<int> Service_Id { get; set; }
         public string Location { get; set; }
+        [Display(Name = "Description")]
+        [Required]
         public string Service_Description { get; set; }
+        [Display(Name = "Begging Time")]
+        [Required]
         public Nullable<System.TimeSpan> Beg_Time { get; set; }
+        [Display(Name = "Ending Time")]
+        [Required]
         public Nullable<System.TimeSpan> End_Time { get; set; }
         public Nullable<bool> Status { get; set; }
         public Nullable<bool> Shown { get; set; }
+        [Display(Name = "Average Hourly Rate")]
+        [Required]
         public Nullable<int> AverageHourlyRate { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }

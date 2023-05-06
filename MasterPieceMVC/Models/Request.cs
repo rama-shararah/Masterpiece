@@ -12,9 +12,11 @@ namespace MasterPieceMVC.Models
     using System;
     using System.Collections.Generic;
     
+
     public partial class Request
     {
         public int Request_Id { get; set; }
+        
         public Nullable<System.DateTime> Request_Date { get; set; }
         public Nullable<decimal> Lantitude { get; set; }
         public Nullable<decimal> Longtitude { get; set; }

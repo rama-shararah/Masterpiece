@@ -11,13 +11,16 @@ namespace MasterPieceMVC.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Comment
     {
         public int Comment_Id { get; set; }
         public string userId { get; set; }
         public Nullable<int> Subscriper_Id { get; set; }
+        [Display(Name = "Comments")]
         public string Comment1 { get; set; }
+        [Display(Name = "Comment Date")]
         public Nullable<System.DateTime> Comment_Date { get; set; }
         public Nullable<bool> Accept { get; set; }
         public Nullable<int> Rate { get; set; }

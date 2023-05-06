@@ -39,6 +39,12 @@
         color: orange;
     }
 
+    #img {
+        width: 33.709rem;
+        border-radius: 0px;
+    }
+
+
     @@media (min-width: 1200px) {
         .col-xl-7 {
             flex: 0 0 auto;
@@ -59,6 +65,44 @@
         border-radius: 10px;
         margin:0% 5% 5% 5%;
     }
+    hr {
+        color: #b7b7b7;
+    }
+
+ 
+
+
+    @@media only screen and (min-device-width: 0px) and (max-device-width: 480px) {
+        #row {
+            display: flex;
+            flex-direction: column-reverse;
+          
+        }
+
+        .rev {
+            display: flex;
+            flex-direction: column-reverse;
+        }
+
+        .line {
+            
+            overflow: hidden;
+            text-overflow: clip;
+        }
+
+    }
+
+    @@media only screen and (min-device-width: 481px) and (max-device-width: 768px) {
+
+        #img {
+            width: 18rem;
+            border-radius: 0px;
+        }
+
+        
+    }
+
+
 </style>
 
 
@@ -73,14 +117,14 @@
             <div class="p-3 py-5">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                 </div>
-                <div class="row mt-2">
+                <div class="row mt-2 rev">
                     <div class="col-md-8">
                         <div style="text-align: right;">
                             @{
                                 MasterPieceMVC.Models.MyMasterPieceEntities db = new MasterPieceMVC.Models.MyMasterPieceEntities();
                                 var count = db.Comments.Where(x => x.Subscriper_Id == Model.Subscriper_Id).Select(x => x.Rate).ToList().Count();
                                 var sum = db.Comments.Where(x => x.Subscriper_Id == Model.Subscriper_Id).Select(x => x.Rate).ToList().Sum();
-                                
+
                                 if (count == 0)
                                 {
                                     count = 1;
@@ -100,14 +144,14 @@
 
 
                         </div>
-        </div>
-             
+                    </div>
+
                     <div class="col-md-4">
                         التقييم
                     </div>
                 </div>
-
-                <div class="row mt-3">
+                <hr />
+                <div class="row mt-3 rev">
                     <div class="col-md-8">
                         @Model.AspNetUser.Location
 
@@ -116,7 +160,8 @@
                         مكان الاقامة
                     </div>
                 </div>
-                <div class="row mt-3">
+                <hr />
+                <div class="row mt-3 rev">
                     <div class="col-md-8">
                         @Model.AspNetUser.PhoneNumber
                     </div>
@@ -124,8 +169,8 @@
                         رقم الهاتف
                     </div>
                 </div>
-
-                <div class="row mt-3">
+                <hr />
+                <div class="row mt-3 rev">
                     <div class="col-md-8">
                         @Model.AverageHourlyRate
                     </div>
@@ -133,7 +178,8 @@
                         متوسط سعر الساعة
                     </div>
                 </div>
-                <div class="row mt-3">
+                <hr />
+                <div class="row mt-3 rev">
                     <div class="col-md-8">
                         @Model.Beg_Time - @Model.End_Time
                     </div>
@@ -141,12 +187,13 @@
                         ساعات العمل
                     </div>
                 </div>
+                <hr />
                 @{
                     var id = Model.Subscriper_Id;
-                    
+
                     var numOfClient = db.Requests.Where(x => x.Subscriper_Id == id).Count();
                 }
-                <div class="row mt-3">
+                <div class="row mt-3 rev">
                     <div class="col-md-8">
                         @numOfClient
 
@@ -155,7 +202,8 @@
                         عدد العملاء
                     </div>
                 </div>
-                <div class="row mt-3">
+                <hr />
+                <div class="row mt-3 rev">
                     <div class="col-md-8">
                         <p>@Model.Service_Description</p>
 
@@ -164,10 +212,11 @@
                         وصف الخدمة
                     </div>
                 </div>
+                <hr />
                 @{
                     var user = User.Identity.Name;
                     var himself = db.Subscripers.FirstOrDefault(x => x.Subscriper_Id == Model.Subscriper_Id).AspNetUser.Email;
-                 }
+                }
                 <div class="row mt-3">
                     <div class="col-md-8">
                         @{ if (User.IsInRole("ServiceProvider") || User.IsInRole("User"))
@@ -203,13 +252,14 @@
             </div>
         </div>
 
-        <div data-inviewport="scale" class="card col-md-5" style="width: 33.709rem; border-radius: 0px">
+        <div data-inviewport="scale" class="card col-md-5" id="img" >
             <img src="~/pic/@Model.Subscriper_Photo" style="height:27rem" class="card-img-top" alt="...">
             <div class="card-body">
                 <p class="card-text">@Model.Last_Name @Model.First_Name</p>
                 <p style="font-size: 14px;" class="card-text">@Model.Service.Service_Name</p>
 
             </div>
+
         </div>
     </div>
 </div>
@@ -322,8 +372,8 @@
                 }
                 @foreach (var item in comment)
                 {
-                    <div class="d-flex flex-start mb-4">
-                        <div class="card w-100">
+                    <div class="d-flex flex-start mb-4 ">
+                        <div class="card w-100 line">
                             <div class="card-body p-4">
                                 <div class="con">
                                     <div class="col-md-3" style="text-align: right;">

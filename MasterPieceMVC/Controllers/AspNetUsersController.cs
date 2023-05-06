@@ -35,7 +35,7 @@ namespace MasterPieceMVC.Controllers
         }
 
 
-        [Authorize]
+        [Authorize(Roles = "User")]
         public ActionResult UserProfile()
         {
             var user = User.Identity.GetUserId();
@@ -48,7 +48,7 @@ namespace MasterPieceMVC.Controllers
         }
 
 
-        [Authorize]
+        [Authorize(Roles ="User")]
         public ActionResult EditUserProfile()
         {
             var user = User.Identity.GetUserId();
@@ -189,10 +189,17 @@ namespace MasterPieceMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
+            try { 
             AspNetUser aspNetUser = db.AspNetUsers.Find(id);
             db.AspNetUsers.Remove(aspNetUser);
             db.SaveChanges();
             return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                // handle the error here
+                return RedirectToAction("Index", "Error");
+            }
         }
 
         protected override void Dispose(bool disposing)
